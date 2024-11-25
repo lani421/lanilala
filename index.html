@@ -12,10 +12,18 @@
         <p>Enjoy the serenity of the forest and the beauty of nature.</p>
     </div>
 
-     <main>
-        <button id="clickButton"> click </button>
-        <p id="message"></p>
-    </main>
+      <div class="container">
+        <h1>힐링 음악 듣기 </h1>
+        <p>클릭하세요.</p>
+        <button id="goToSecondPageButton">두 번째 페이지로 이동</button>
+    </div>
+
+    <script>
+        // 버튼 클릭 시 두 번째 페이지로 이동
+        document.getElementById('goToSecondPageButton').addEventListener('click', function() {
+            window.location.href = 'secondPage.html'; // 두 번째 페이지로 이동
+        });
+    </script>
 
    
 </body>
