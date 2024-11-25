@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>두 번째 페이지</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>두 번째 페이지에 오신 것을 환영합니다!</h1>
+        <p>다시 첫 번째 페이지로 돌아가려면 버튼을 클릭하세요.</p>
+        <button id="goBackButton">첫 번째 페이지로 돌아가기</button>
+    </div>
+
+    <script>
+        // 버튼 클릭 시 첫 번째 페이지로 돌아가기
+        document.getElementById('goBackButton').addEventListener('click', function() {
+            window.location.href = 'index.html'; // 첫 번째 페이지로 이동
+        });
+    </script>
+</body>
+</html>
