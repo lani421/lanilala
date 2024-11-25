@@ -45,3 +45,42 @@ main {
     text-align: center;
 }
 
+/* 전체 레이아웃 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 하늘색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 400px;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #4CAF50; /* 초록색 배경 */
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+/* 버튼 호버 스타일 */
+button:hover {
+    background-color: #45a049;
+}
