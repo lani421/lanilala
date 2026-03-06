@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>하트숲 · 링크</title>
+  <title>하트숲에서</title>
 
   <style>
+    /* 기본 설정 */
     body {
       font-family: 'NanumSquare', sans-serif;
-      background: #faf9f6;
-      color: #2f3a32;
+      background: linear-gradient(180deg, #f9f8f4 0%, #eceae4 100%);
+      color: #2e3a33;
       margin: 0;
       display: flex;
       justify-content: center;
@@ -19,35 +20,51 @@
 
     .wrap {
       width: 100%;
-      max-width: 420px;
-      padding: 40px 20px;
+      max-width: 440px;
+      padding: 50px 25px;
       text-align: center;
+      background: rgba(255,255,255,0.85); /* 미묘한 깊이감 */
+      border-radius: 16px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.08);
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     p {
-      font-size: 0.95rem;
-      color: #5f6f65;
-      margin-bottom: 30px;
+      font-size: 1rem;
+      color: #55645d;
+      margin-bottom: 35px;
+      line-height: 1.6;
+      font-style: italic; /* 성찰적 느낌 강조 */
     }
 
     a {
       display: block;
-      padding: 14px;
-      margin-bottom: 14px;
-      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-radius: 12px;
       text-decoration: none;
-      color: #27423b;
-      background: #e8f0eb;
-      transition: background 0.2s;
+      color: #2c3a32;
+      background: #e4eee7;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.04);
     }
 
     a:hover {
-      background: #d7e6df;
+      background: #d0dfd6;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* 아이콘/이모지 간격 */
+    a span {
+      margin-right: 6px;
     }
   </style>
 </head>
@@ -55,13 +72,13 @@
 <body>
   <div class="wrap">
     <h1>하트숲</h1>
-    <p>마음을 접시에 올리는 온라인 전시</p>
+    <p>마음을 채우고, 접시 위 여백을 상상하며,<br>나만의 하트숲을 탐험해보세요.</p>
 
-    <a href="seasonal3.html">🌱 하트숲 전시 https://lani421.github.io/lanilala/ </a>
-    <a href="https://glitch.com/~프로젝트">🍽 비어 있는 접시 (전시 프로젝트)</a>
-    <a href="https://티스토리주소">📓 하트숲 저널</a>
-    <a href="https://tumblbug주소">📕 POD · PDF 책</a>
-    <a href="https://tumblbug주소">📕 나만의 종이 저널 </a>
+    <a href="seasonal3.html"><span></span>하트숲 전시</a>
+    <a href="plate1.html"><span></span>하트숲의 피크닉 – 9개의 접시 (전시 프로젝트)</a>
+    <a href="무료체험.html">하트숲 버터토끼 30일 미션 무료체험 다운로드</a>
+    <a href="하트숲책.html">하트숲 PDF 책저널 보기</a>
+    <a href="텀블벅.html"><span>📕</span>하트숲 나만의 종이 저널 응원하기</a>
   </div>
 </body>
 </html>
