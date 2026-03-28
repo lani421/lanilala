@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>버터토끼 SNS 카드 업그레이드</title>
+
+<style>
+body {
+  font-family: 'NanumSquare', sans-serif;
+  margin:0;
+  padding:0;
+  background:#fff7ee;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.container {
+  max-width: 400px;
+  width:90%;
+  text-align:center;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+header img {
+  width:100px;
+  margin-bottom:10px;
+}
+h1 {
+  color:#ff8c42;
+  margin:5px 0;
+  font-size:1.2rem;
+}
+.card {
+  border-radius:15px;
+  padding:15px;
+  margin:10px 0;
+  text-align:left;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+  color:#2f3a32;
+  transition: transform 0.2s;
+}
+.card:hover { transform:translateY(-3px); }
+textarea {
+  width:100%;
+  height:80px;
+  margin-top:10px;
+  border-radius:8px;
+  border:1px solid #dcdedc;
+  padding:8px;
+  resize:none;
+  font-size:0.9rem;
+}
+.button {
+  display:inline-block;
+  margin:10px 5px;
+  padding:10px 20px;
+  background:#ff9f43;
+  color:#fff;
+  border-radius:8px;
+  cursor:pointer;
+}
+.button:hover { background:#ff7a00; }
+select {
+  padding:5px 10px;
+  border-radius:6px;
+  border:1px solid #dcdedc;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+<img src="버끼입체.png" alt="버터 토끼">
+<h1>오늘의 루틴 카드</h1>
+</header>
+
+<select id="daySelect"></select>
+
+<div class="card" id="routineCard"></div>
+
+<textarea id="shareText" readonly>
+#버터토끼루틴 #비스킷루틴 #5분루틴 오늘 하루 5분 루틴 완료!
+</textarea>
+
+<br>
+<button class="button" onclick="copyText()">멘트 복사</button>
+
+</div>
+
+<script>
+// Day 옵션 생성
+const select = document.getElementById('daySelect');
+for(let i=1;i<=30;i++){
+  const option = document.createElement('option');
+  option.value = i;
+  option.textContent = "Day " + i;
+  select.appendChild(option);
+}
+
+// 루틴 데이터
+const routines = {
+  1:{text:"마음 체크 - 오늘 기분을 한 단어로 적어보기", color:"#fff3d9"},
+  2:{text:"따뜻한 말 한마디 - 친구나 가족에게 “오늘 고마웠어” 말하기", color:"#fff0f5"},
+  3:{text:"햇살 스트레칭 - 아침 창가에서 3분 스트레칭", color:"#e0fff7"},
+  4:{text:"하트산책 - 짧은 산책 중 좋은 것 3가지 찾아 메모하기", color:"#fffbe0"},
+  5:{text:"사르르타임 - 좋아하는 음료와 함께 10분간 책 읽기", color:"#f0e0ff"},
+  6:{text:"감정 한 줌 꺼내기 - 오늘 느낀 감정 하나를 자세히 적어보기", color:"#e0f7ff"},
+  7:{text:"칭찬 쪽지 - 나 자신을 칭찬하는 한 줄 쪽지 쓰기", color:"#fff0e0"},
+  8:{text:"미소 거울 - 거울 보며 나에게 미소 짓기 5초간", color:"#f0fff0"},
+  9:{text:"잠깐 멍 때리기 - 5분간 아무 생각 없이 앉아있기", color:"#ffe0e0"},
+  10:{text:"고마움 수집 - 감사한 일 3가지 적기", color:"#e0ffe0"},
+  11:{text:"그날의 명언 - 오늘 마음에 닿은 문장 하나 찾아 적기", color:"#f9f9ff"},
+  12:{text:"따뜻한 메시지 - 오랜 친구에게 안부 메시지 보내기", color:"#fff0f5"},
+  13:{text:"감성 플레이리스트 - 오늘 감정에 맞는 노래 한 곡 듣기", color:"#f0e0ff"},
+  14:{text:"말 줄이기 실험 - 하루 동안 불필요한 말 한 마디 줄이기", color:"#f0fff0"},
+  15:{text:"식사 감사 - 식사 전 마음속으로 “고마워” 한 번 하기", color:"#fffbe0"},
+  16:{text:"공감 실천 - 누군가의 말에 끼어들지 않고 끝까지 듣기", color:"#e0fff7"},
+  17:{text:"천천히 걷기 - 5분간 일부러 느리게 걷기", color:"#e0f7ff"},
+  18:{text:"나의 공간 정리 - 자주 쓰는 공간 5분 정리하기", color:"#fff0e0"},
+  19:{text:"디지털 쉼 - 1시간 휴대폰 없이 보내보기", color:"#ffe0e0"},
+  20:{text:"작은 선물 - 나에게 좋아하는 간식 하나 사주기", color:"#fff3d9"},
+  21:{text:"향기 한 모금 - 좋아하는 향 느껴보기", color:"#f0fff0"},
+  22:{text:"색깔 산책 - 오늘의 색 찾기", color:"#fffbe0"},
+  23:{text:"호흡 집중 - 3분간 호흡 집중하기", color:"#e0f7ff"},
+  24:{text:"옛 추억 꺼내기 - 좋은 기억 떠올리기", color:"#f9f9ff"},
+  25:{text:"오늘의 YES - 하나 도전하기", color:"#fff0f5"},
+  26:{text:"미니 정리정돈 - 한 구역 정리", color:"#fff0e0"},
+  27:{text:"따뜻한 이름 부르기", color:"#f0fff0"},
+  28:{text:"긍정 되새김 - 좋은 일 1가지", color:"#e0ffe0"},
+  29:{text:"내일의 나에게 응원", color:"#f0e0ff"},
+  30:{text:"하트 편지쓰기", color:"#fff3d9"}
+};
+
+// 카드 업데이트
+const card = document.getElementById('routineCard');
+const share = document.getElementById('shareText');
+
+function updateCard(){
+  const day = select.value;
+  if(routines[day]){
+    const [title, desc] = routines[day].text.split(" - ");
+    card.innerHTML = `<strong>Day ${day} - ${title}</strong><br>${desc || ""}`;
+    card.style.backgroundColor = routines[day].color;
+    share.value = `#버터토끼루틴 #비스킷루틴 #5분루틴 오늘 ${title} 루틴 완료! 🐰`;
+  }
+}
+
+// ⭐ 오늘 날짜 자동 매칭
+function setTodayDay(){
+  const today = new Date().getDate(); // 1~31
+  const day = ((today - 1) % 30) + 1; // 1~30 반복
+  select.value = day;
+}
+
+// 이벤트
+select.addEventListener('change', updateCard);
+
+// 실행 순서 중요!
+setTodayDay();
+updateCard();
+
+// 복사 기능
+function copyText(){
+  share.select();
+  document.execCommand('copy');
+  alert("멘트가 복사되었습니다!");
+}
+</script>
+
+</body>
+</html>

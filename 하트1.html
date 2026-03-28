@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>하트나무 키우기</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Arial', sans-serif;
+      background-color: #f2fbf2;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 1.1rem;
+    }
+
+    /* ——— 하트나무 애니메이션 추가 영역 ——— */
+    .heart-tree-container {
+      margin: 50px auto 0;
+      width: 150px;
+      height: 300px;
+      position: relative;
+    }
+
+    .trunk {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 40px;
+      height: 120px;
+      background: #7a5c40;
+      transform: translateX(-50%);
+      border-radius: 10px;
+    }
+
+    .leaves {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle at center, #5a7d8c 60%, transparent 70%);
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #D94F45;
+      transform: rotate(-45deg);
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #D94F45;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+
+    .heart1 {
+      bottom: 200px;
+      left: 60px;
+      animation: bloom 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+    .heart2 {
+      bottom: 160px;
+      left: 100px;
+      animation: bloom 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+    .heart3 {
+      bottom: 210px;
+      left: 110px;
+      animation: bloom 1s ease forwards;
+      animation-delay: 1.3s;
+    }
+    .heart4 {
+      bottom: 180px;
+      left: 40px;
+      animation: bloom 1s ease forwards;
+      animation-delay: 1.8s;
+    }
+    .heart5 {
+      bottom: 150px;
+      left: 80px;
+      animation: bloom 1s ease forwards;
+      animation-delay: 2.3s;
+    }
+
+    @keyframes bloom {
+      0% {
+        opacity: 0;
+        transform: rotate(-45deg) scale(0);
+      }
+      100% {
+        opacity: 1;
+        transform: rotate(-45deg) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>씨앗을 심고, 하트나무를 키워보세요 </h2>
+  <p>
+    당신의 일상 루틴이 씨앗이 되어<br />
+    작고 따뜻한 하트나무로 자라납니다.
+  </p>
+
+  <!-- 하트나무 애니메이션 영역 -->
+  <div class="heart-tree-container">
+    <div class="trunk"></div>
+    <div class="leaves"></div>
+
+    <div class="heart heart1"></div>
+    <div class="heart heart2"></div>
+    <div class="heart heart3"></div>
+    <div class="heart heart4"></div>
+    <div class="heart heart5"></div>
+  </div>
+</body>
+</html>

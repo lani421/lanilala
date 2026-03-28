@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>하트잼 감정 레시피</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff6f6;
+      color: #552a2a;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #ff4081;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #ff8fa3;
+      color: white;
+      margin-top: 15px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .result {
+      background-color: #ffe9ec;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .share-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .share-buttons button {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>🍓 하트잼 감정 레시피 🍯</h2>
+  <p>오늘의 마음을 담아 잼을 만들어보세요.</p>
+
+  <form id="jamForm">
+    <label for="sugar">설탕 양은?</label>
+    <select id="sugar">
+      <option value="많이">많이 넣어요 (달콤하게)</option>
+      <option value="적게">조금만 넣어요 (담백하게)</option>
+    </select>
+
+    <label for="lemon">레몬즙은?</label>
+    <select id="lemon">
+      <option value="넣음">넣어요 (상큼하게)</option>
+      <option value="안넣음">안 넣어요</option>
+    </select>
+
+    <label for="extra">특별 재료는?</label>
+    <select id="extra">
+      <option value="계피">계피 (추억의 향기)</option>
+      <option value="바닐라">바닐라 (부드러운 위로)</option>
+      <option value="소금">소금 (작은 현실의 무게)</option>
+      <option value="꽃잎">말린 꽃잎 (예술적 감성)</option>
+      <option value="물">물 (유연함과 여유)</option>
+      <option value="꿀">꿀 (따뜻한 배려)</option>
+      <option value="민트">민트 (새로운 활력)</option>
+      <option value="없음">없어요</option>
+    </select>
+
+    <button type="button" onclick="makeJam()">잼 만들기 🍯</button>
+  </form>
+
+  <div class="result" id="resultBox">
+    <h3>🍯 당신의 감정 잼은...</h3>
+    <p id="jamResult"></p>
+
+    <div class="share-buttons" style="display: none;">
+     <button onclick=" ()">📥 카카오톡 공유</button>
+      
+    </div>
+  </div>
+
+  <script>
+    function makeJam() {
+      const sugar = document.getElementById('sugar').value;
+      const lemon = document.getElementById('lemon').value;
+      const extra = document.getElementById('extra').value;
+
+      let result = "";
+
+      // 설탕 해석
+      if (sugar === "많이") {
+        result += "💕 당신의 마음에는 사랑이 가득하네요. 누군가를 따뜻하게 생각하고 있어요.<br>";
+      } else {
+        result += "🌿 당신은 담백하고 고요한 마음 상태예요. 스스로를 성찰하는 시간일지도 몰라요.<br>";
+      }
+
+      // 레몬 해석
+      if (lemon === "넣음") {
+        result += "🍋 상큼한 기쁨이 느껴져요. 새로운 시작이나 가벼운 설렘이 함께 하고 있어요.<br>";
+      }
+
+      // 특별 재료 해석
+      const extras = {
+        "계피": "🍂 계피 향처럼 추억이 깃든 감정을 간직하고 있네요.",
+        "바닐라": "🧁 부드러운 위로가 필요한 상태예요. 당신의 마음을 다독여주세요.",
+        "소금": "💧 작은 현실의 무게를 함께 담았군요. 감정이 깊고 진중해요.",
+        "꽃잎": "🎨 당신의 감정은 예술적이에요. 표현하고 싶은 감성이 풍부하군요.",
+        "물": "🌊 유연함과 여유로움이 느껴지는 하루예요. 감정을 흘려보낼 준비가 되어 있네요.",
+        "꿀": "🍯 따뜻한 배려와 친절함이 담겨 있어요. 누군가에게 힘이 되어주는 마음입니다.",
+        "민트": "🌱 상쾌한 활력과 새로움이 느껴져요. 에너지가 충전되고 있어요.",
+        "없음": "🍯 잼을 담백하게 만들었어요. 오늘은 소박한 하루네요."
+      };
+
+      result += extras[extra];
+
+      document.getElementById('jamResult').innerHTML = result;
+      document.getElementById('resultBox').style.display = 'block';
+    }
+    
+    function downloadResult() {
+    const url = window.location.href;
+    const shareUrl = `https://story.kakao.com/share?url=${encodeURIComponent(url)}`;
+    window.open(shareUrl, "_blank");
+}
+        
+     </script>
+</body>
+</html>

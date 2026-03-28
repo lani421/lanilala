@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>하트밥상</title>
+
+  <style>
+    body {
+      font-family: 'NanumSquare', 'Arial', sans-serif;
+      margin: 0;
+      background-color: #faf9f6; /* 따뜻한 종이의 색 */
+      color: #2f3a32;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(to bottom, #d8e8df, #edf4ef);
+      padding: 55px 20px 60px;
+      text-align: center;
+      border-bottom: 1px solid #d9e3dc;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.7rem;
+      color: #27423b; /* 짙은 청녹 */
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 1.1rem;
+      color: #556b5f;
+    }
+
+    section {
+      padding: 50px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      font-size: 1.9rem;
+      margin-bottom: 25px;
+      color: #3d4d43;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* 밥상 위에 올려둔 듯한 갤러리 */
+    .season-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+      max-width: 780px;
+      margin: 0 auto;
+      justify-items: center;
+      padding: 25px 0;
+      border-radius: 12px;
+    }
+
+    .season-gallery img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.28s ease;
+      cursor: pointer;
+    }
+
+    .season-gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 35px 10px;
+      font-size: 0.9rem;
+      color: #8a8a8a;
+      background-color: #f0f3f2;
+      border-top: 1px solid #dcdedc;
+    }
+  </style>
+
+  <script>
+    function openImagePopup(pageUrl) {
+      const popupWidth = 600;
+      const popupHeight = 600;
+
+      const left = (window.screen.width - popupWidth) / 2;
+      const top = (window.screen.height - popupHeight) / 2;
+
+      window.open(
+        pageUrl,
+        "_blank",
+        `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=no,scrollbars=no`
+      );
+    }
+  </script>
+</head>
+
+<body>
+
+  <header>
+    <h1>하트나무저널</h1>
+    <p>숲에서 펼쳐지는 기록</p>
+  </header>
+
+  <section>
+    <h2>하트 나무 키우기</h2>
+    <div class="season-gallery">
+      <img src="하트숲1.gif" alt="하트나무" onclick="openImagePopup('하트1.html')">
+    </div>
+  </section>
+
+  <section >
+    <h2>하튼 열매 수확하기</h2>
+    <div class="season-gallery">
+      <img src="하트토끼열매.PNG" alt="하트열매" onclick="openImagePopup('하트바구니21.html')">
+    </div> 
+  </section>
+
+  <section>
+    <h2>하트잼 만들기 </h2>
+    <div class="season-gallery">
+      <img src="하트잼.png" alt="하트잼" onclick="openImagePopup('하트3.html')">
+    </div>
+  </section>
+
+  <section>
+    <h2>하트플랜트 저널 쓰기</h2>
+    <div class="season-gallery">
+      <img src="하트그림4.PNG" alt="하트숲저널" onclick="openImagePopup('하트4.html')">
+    </div>
+  </section>
+
+  <footer>
+    © 2025 하트플랜트 저널 · 모든 권리 보유.
+  </footer>
+
+</body>
+</html>

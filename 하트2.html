@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>하트 수확</title>
+  <style>
+    body {
+      background: #8aedca;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 120vh;
+      margin: 0;
+      overflow: hidden;
+      margin: 0;
+      padding: 10px;
+      font-family: 'Arial', sans-serif;
+      background-color: #84beb2;
+      color: #3e2f1f;
+      text-align: center;
+    }
+    
+    p {
+      margin-top: 5px;
+      font-size: 0.7rem;
+    }
+    h3 {
+      margin-top: 5px;
+      color: #444;
+    }
+
+    .info-bar {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
+      display: flex;
+      gap: 20px;
+    }
+
+    .game-area {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      border: 3px solid #ccc;
+      background: linear-gradient(to bottom, #d6956a8e, #b07925b0);
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .basket {
+      position: absolute;
+      bottom: 10px;
+      width: 80px;
+      height: 40px;
+      background: linear-gradient(to bottom, #f7fcadf7, #ebf39d);
+      border-radius: 50% / 20%;
+      box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: left 0.1s;
+    }
+
+    .heart {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: hsl(328, 65%, 77%);
+      transform: rotate(-45deg);
+      animation: fall linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #eba1d8
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3> 하트열매를 잡아라!</h3>
+  <p>하트열매를 수확하는 날 <br>
+    <>화살표로 바구니를 움직여 하트 열매를 수확하세요~
+  </p>
+  <div class="info-bar">
+    <div>점수: <span id="score">0</span></div>
+    <div>놓친 하트: <span id="missed">0</span></div>
+    <div>남은 시간: <span id="timer">60</span>초</div>
+  </div>
+
+  <div class="game-area" id="gameArea">
+    <div class="basket" id="basket"></div>
+  </div>
+
+  <script>
+    const gameArea = document.getElementById('gameArea');
+    const basket = document.getElementById('basket');
+    const scoreDisplay = document.getElementById('score');
+    const missedDisplay = document.getElementById('missed');
+    const timerDisplay = document.getElementById('timer');
+
+    let score = 0;
+    let missed = 0;
+    let basketX = 110; // 초기 바구니 좌표
+    basket.style.left = `${basketX}px`;
+
+    // 바구니 키보드 조작
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        basketX = Math.max(0, basketX - 20);
+      } else if (e.key === 'ArrowRight') {
+        basketX = Math.min(220, basketX + 20);
+      }
+      basket.style.left = `${basketX}px`;
+    });
+
+    // 하트 떨어지는 시간 (ms)
+    const fallDuration = 4000;
+
+    // 하트 생성 및 낙하 처리
+    function dropHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+
+      const heartX = Math.random() * 270;
+      heart.style.left = `${heartX}px`;
+      heart.style.top = `-40px`;
+      heart.style.animationDuration = `${fallDuration}ms`;
+
+      gameArea.appendChild(heart);
+
+      // 떨어지는 애니메이션 (수동으로 top 늘리기)
+      let start = null;
+
+      function fall(timestamp) {
+        if (!start) start = timestamp;
+        const elapsed = timestamp - start;
+        const progress = elapsed / fallDuration;
+        const currentTop = progress * 540 - 40; // -40 시작 위치에서 500 + 여유 40까지
+
+        heart.style.top = `${currentTop}px`;
+
+        // 충돌 체크
+        const heartRect = heart.getBoundingClientRect();
+        const basketRect = basket.getBoundingClientRect();
+
+        // 하트가 바구니 범위 내에 있을 때
+        if (
+          heartRect.bottom >= basketRect.top &&
+          heartRect.left < basketRect.right &&
+          heartRect.right > basketRect.left
+        ) {
+          // 잡힌 상태 처리
+          score++;
+          scoreDisplay.textContent = score;
+          heart.remove();
+          return; // 애니메이션 중지
+        }
+
+        // 화면 밖으로 내려갔으면 놓친 하트
+        if (currentTop > gameArea.clientHeight) {
+          missed++;
+          missedDisplay.textContent = missed;
+          heart.remove();
+          return; // 애니메이션 중지
+        }
+
+        // 애니메이션 계속
+        if (progress < 1) {
+          requestAnimationFrame(fall);
+        }
+      }
+
+      requestAnimationFrame(fall);
+    }
+
+    // 하트 생성 간격
+    let heartInterval = setInterval(dropHeart, 1000);
+
+    // 게임 타이머 60초 카운트다운
+    let timeLeft = 60;
+    const timerInterval = setInterval(() => {
+      timeLeft--;
+      timerDisplay.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        clearInterval(heartInterval);
+        alert(`게임 종료!\n점수: ${score}\n놓친 하트: ${missed}`);
+      }
+    }, 1000);
+  </script>
+
+  
+</body>
+</html>
