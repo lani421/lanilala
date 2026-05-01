@@ -82,7 +82,7 @@ select {
 <div class="card" id="bunnyMessage"></div>
 
 <button class="button" onclick="doRoutine()">실행</button>
-<button class="button" onclick="randomRoutine()">랜덤 🎲</button>
+<button class="button" onclick="randomRoutine()">랜덤 </button>
 <button class="button" onclick="goToBlog()">종이 다운로드</button>
 
 </div>
@@ -101,7 +101,7 @@ const routines = [
 ];
 
 const messages = [
-"오늘도 잘했어요 🐰","작은 걸음도 의미 있어요",
+"오늘도 잘했어요 ","작은 걸음도 의미 있어요",
 "버터토끼가 응원해요","포기하지 마세요",
 "행복 포인트 획득!","오늘도 빛나요",
 "성장하고 있어요","스스로 칭찬하세요"
@@ -123,7 +123,7 @@ function canRunToday(){
   const today = new Date().toDateString();
   const done = localStorage.getItem("doneDate");
   if(done === today){
-    alert("오늘은 이미 완료했어요 🐰");
+    alert("오늘은 이미 완료했어요 ");
     return false;
   }
   localStorage.setItem("doneDate", today);
@@ -140,8 +140,8 @@ function doRoutine(){
   const routine = routines[idx];
   const msg = messages[Math.floor(Math.random()*messages.length)];
 
-  routineCard.innerHTML = `📝 ${routine}`;
-  bunnyCard.innerHTML = `🐰 ${msg}`;
+  routineCard.innerHTML = ` ${routine}`;
+  bunnyCard.innerHTML = ` ${msg}`;
 
   localStorage.setItem("lastRoutine", routine);
   localStorage.setItem("lastMessage", msg);
