@@ -1,145 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>하트밥상</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: 'NanumSquare', 'Arial', sans-serif;
-      margin: 0;
-      background-color: #faf9f6; /* 따뜻한 종이의 색 */
-      color: #2f3a32;
-      line-height: 1.6;
-    }
+<title>하트플랜트 저널</title>
 
-    header {
-      background: linear-gradient(to bottom, #d8e8df, #edf4ef);
-      padding: 55px 20px 60px;
-      text-align: center;
-      border-bottom: 1px solid #d9e3dc;
-    }
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
 
-    h1 {
-      margin: 0;
-      font-size: 2.7rem;
-      color: #27423b; /* 짙은 청녹 */
-      letter-spacing: 1px;
-    }
+  body{
+    font-family:'NanumSquare', sans-serif;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    background:#faf9f6;
 
-    header p {
-      margin-top: 8px;
-      font-size: 1.1rem;
-      color: #556b5f;
-    }
+    /* 가로 스냅 */
+    scroll-snap-type: x mandatory;
+    display:flex;
 
-    section {
-      padding: 50px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+    height:100vh;
+  }
 
-    section h2 {
-      font-size: 1.9rem;
-      margin-bottom: 25px;
-      color: #3d4d43;
-      text-align: center;
-      font-weight: 600;
-    }
+  /* 각 페이지 */
+  .page{
+    min-width:100vw;
+    height:100vh;
 
-    /* 밥상 위에 올려둔 듯한 갤러리 */
-    .season-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 22px;
-      max-width: 780px;
-      margin: 0 auto;
-      justify-items: center;
-      padding: 25px 0;
-      border-radius: 12px;
-    }
+    scroll-snap-align:start;
 
-    .season-gallery img {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      transition: transform 0.28s ease;
-      cursor: pointer;
-    }
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
 
-    .season-gallery img:hover {
-      transform: scale(1.03);
-    }
+    padding:40px;
+    position:relative;
+  }
 
-    footer {
-      margin-top: 50px;
-      text-align: center;
-      padding: 35px 10px;
-      font-size: 0.9rem;
-      color: #8a8a8a;
-      background-color: #f0f3f2;
-      border-top: 1px solid #dcdedc;
-    }
-  </style>
+  /* 페이지마다 다른 배경 */
+  .page:nth-child(1){
+    background:linear-gradient(to bottom,#d8e8df,#edf4ef);
+  }
 
-  <script>
-    function openImagePopup(pageUrl) {
-      const popupWidth = 600;
-      const popupHeight = 600;
+  .page:nth-child(2){
+    background:#f8f3ea;
+  }
 
-      const left = (window.screen.width - popupWidth) / 2;
-      const top = (window.screen.height - popupHeight) / 2;
+  .page:nth-child(3){
+    background:#f3ece7;
+  }
 
-      window.open(
-        pageUrl,
-        "_blank",
-        `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=no,scrollbars=no`
-      );
-    }
-  </script>
+  .page:nth-child(4){
+    background:#eef3ef;
+  }
+
+  h1,h2{
+    color:#27423b;
+    margin-bottom:20px;
+  }
+
+  p{
+    color:#556b5f;
+    margin-bottom:30px;
+  }
+
+  .season-gallery{
+    width:320px;
+  }
+
+  .season-gallery img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+
+    border-radius:16px;
+    cursor:pointer;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+
+    transition:0.3s;
+  }
+
+  .season-gallery img:hover{
+    transform:scale(1.03);
+  }
+
+  /* 하단 안내 */
+  .hint{
+    position:absolute;
+    bottom:30px;
+    font-size:14px;
+    color:#777;
+  }
+</style>
+
+<script>
+function openImagePopup(pageUrl) {
+
+  const popupWidth = 700;
+  const popupHeight = 700;
+
+  const left = (screen.width - popupWidth) / 2;
+  const top = (screen.height - popupHeight) / 2;
+
+  window.open(
+    pageUrl,
+    "_blank",
+    `width=${popupWidth},
+    height=${popupHeight},
+    left=${left},
+    top=${top}`
+  );
+}
+</script>
 </head>
 
 <body>
 
-  <header>
-    <h1>하트나무저널</h1>
-    <p>숲에서 펼쳐지는 기록</p>
-  </header>
+<!-- 첫 페이지 -->
+<section class="page">
+  <h1>하트나무저널</h1>
+  <p>숲에서 펼쳐지는 기록</p>
 
-  <section>
-    <h2>하트 나무 키우기</h2>
-    <div class="season-gallery">
-      <img src="미로와 라니.jpg" alt="하트나무" onclick="openImagePopup('하트1.html')">
-    </div>
-  </section>
+  <div class="season-gallery">
+    <img src="미로와 라니.jpg"
+         onclick="openImagePopup('하트1.html')">
+  </div>
 
-  <section >
-    <h2>하튼 열매 수확하기</h2>
-    <div class="season-gallery">
-      <img src="하트토끼열매.png" alt="하트열매" onclick="openImagePopup('하트바구니21.html')">
-    </div> 
-  </section>
+  <div class="hint">→ 옆으로 스크롤</div>
+</section>
 
-  <section>
-    <h2>하트잼 만들기 </h2>
-    <div class="season-gallery">
-      <img src="하트잼.png" alt="하트잼" onclick="openImagePopup('하트3.html')">
-    </div>
-  </section>
+<!-- 두 번째 페이지 -->
+<section class="page">
+  <h2>하튼 열매 수확하기</h2>
 
-  <section>
-    <h2>하트플랜트 저널 쓰기</h2>
-    <div class="season-gallery">
-      <img src="하트그림4.png" alt="하트숲저널" onclick="openImagePopup('하트4.html')">
-    </div>
-  </section>
+  <div class="season-gallery">
+    <img src="하트토끼열매.PNG"
+         onclick="openImagePopup('하트바구니21.html')">
+  </div>
+</section>
 
-  <footer>
-    © 2025 하트플랜트 저널 · 모든 권리 보유.
-  </footer>
+<!-- 세 번째 페이지 -->
+<section class="page">
+  <h2>하트잼 만들기</h2>
+
+  <div class="season-gallery">
+    <img src="하트잼.png"
+         onclick="openImagePopup('하트3.html')">
+  </div>
+</section>
+
+<!-- 네 번째 페이지 -->
+<section class="page">
+  <h2>하트플랜트 저널 쓰기</h2>
+
+  <div class="season-gallery">
+    <img src="하트그림4.PNG"
+         onclick="openImagePopup('하트4.html')">
+  </div>
+</section>
 
 </body>
 </html>
