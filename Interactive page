@@ -1,92 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-      .garden {
-        text-align:center;
-      }
-      /* 스타일을 통해 오디오 플레이어 디자인을 개선할 수 있습니다. */
-      .audio-player {
-          max-width: 500px;
-          margin: 0 auto;
-          text-align: center;
-          background-color: #371272;
-          padding: 10px;
-          border-radius: 10px;
-      }
-      img {
-            width: 300px;  /* 이미지 너비를 300px로 설정 */
-            height: 300px;  /* 높이는 자동으로 비율을 맞춰 조정 */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  </style>
-    <link href="styles.css" rel="stylesheet"/>
+<title>하트나무저널</title>
+
+<!-- GSAP CDN -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'NanumSquare','Arial',sans-serif;
+
+  display:flex;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  height:100vh;
+
+  background:#faf9f6;
+
+  scroll-snap-type:x mandatory;
+
+  scroll-behavior:smooth;
+}
+
+/* 페이지 */
+.page{
+  min-width:100vw;
+  height:100vh;
+
+  scroll-snap-align:start;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:40px;
+
+  position:relative;
+}
+
+/* 배경 */
+.page1{
+  background:linear-gradient(to bottom,#d8e8df,#edf4ef);
+}
+
+.page2{
+  background:#f8f2ea;
+}
+
+.page3{
+  background:#f5ece7;
+}
+
+.page4{
+  background:#eef3ef;
+}
+
+/* 제목 */
+h1{
+  font-size:3rem;
+  color:#27423b;
+  margin-bottom:10px;
+}
+
+h2{
+  font-size:2rem;
+  color:#31473e;
+  margin-bottom:25px;
+}
+
+.subtitle{
+  color:#556b5f;
+  margin-bottom:35px;
+  font-size:1.1rem;
+}
+
+/* 이미지 */
+.season-gallery{
+  width:320px;
+  max-width:90%;
+}
+
+.season-gallery img{
+
+  width:100%;
+  height:230px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  cursor:pointer;
+
+  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+
+  transition:0.3s;
+}
+
+.season-gallery img:hover{
+  transform:scale(1.05);
+}
+
+/* 하단 힌트 */
+.hint{
+  position:absolute;
+  bottom:30px;
+
+  font-size:14px;
+  color:#777;
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar{
+  height:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#eceae5;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#b8c8be;
+  border-radius:10px;
+}
+
+</style>
+
+<script>
+
+function openImagePopup(pageUrl){
+
+  const popupWidth = 700;
+  const popupHeight = 700;
+
+  const left = (window.screen.width - popupWidth) / 2;
+  const top = (window.screen.height - popupHeight) / 2;
+
+  window.open(
+    pageUrl,
+    "_blank",
+    `width=${popupWidth},
+    height=${popupHeight},
+    left=${left},
+    top=${top}`
+  );
+}
+
+/* 페이지 로딩 후 실행 */
+window.onload = function(){
+
+  /* 페이지 fade */
+  gsap.from(".page", {
+
+    opacity:0,
+    duration:1.2,
+
+    stagger:0.4
+
+  });
+
+  /* 이미지 float */
+  gsap.to(".season-gallery img", {
+
+    y:-15,
+
+    duration:2,
+
+    repeat:-1,
+
+    yoyo:true,
+
+    ease:"power1.inOut"
+
+  });
+
+};
+
+</script>
+
 </head>
+
 <body>
-  <div id="garden"> 
-    <main>
-        <h1>유칼립투스 정원 <strong>음악</strong></h1>
-        <section><style>
-          /* 스타일을 통해 오디오 플레이어 디자인을 개선할 수 있습니다. */
-          .audio-player {
-              max-width: 600px;
-              margin: 0 auto;
-              text-align: center;
-              background-color: hwb(214 81% 13% / 0.849);
-              padding: 10px;
-              border-radius: 10px;
-          }
-        </style>
-            <h2>라니와 함께 듣는 힐링 뮤직</h2>
-        </section>
-        <img src="flowergd.jpeg" alt="정원">
 
-          <section>
-            <h2>음악 리스트</h2>
-            <ul>
-              <div class="audio-player">
+<!-- PAGE 1 -->
+<section class="page page1">
 
-              <li>매화</li>
-                <h2>음악 재생</h2>
-                <audio controls>
-                    <source src="meditation.mp3" type="audio/mp3">
-                </audio>                    
-              <li>난</li>
-              <h2>음악 재생</h2>
-                <audio controls>
-                    <source src="Anything.mp3" type="audio/mp3">
-            </ul>
-          </section>
-          <div id="piano"> 
-          <div class="keys"> 
-            <div  class="key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-          </div>
-          </div>
-         <p>이전 <a href="index.html">페이지</a>로 돌아가기</p>
-    </main>
+  <h1>하트나무저널</h1>
+
+  <p class="subtitle">
+    숲에서 펼쳐지는 기록
+  </p>
+
+  <div class="season-gallery">
+
+    <img
+      src="미로와 라니.jpg"
+      alt="하트나무"
+      onclick="openImagePopup('하트1.html')"
+    >
+
   </div>
+
+  <div class="hint">
+    → 옆으로 넘겨보세요
+  </div>
+
+</section>
+
+<!-- PAGE 2 -->
+<section class="page page2">
+
+  <h2>하튼 열매 수확하기</h2>
+
+  <div class="season-gallery">
+
+    <img
+      src="하트토끼열매.PNG"
+      alt="하트열매"
+      onclick="openImagePopup('하트바구니21.html')"
+    >
+
+  </div>
+
+</section>
+
+<!-- PAGE 3 -->
+<section class="page page3">
+
+  <h2>하트잼 만들기</h2>
+
+  <div class="season-gallery">
+
+    <img
+      src="하트잼.png"
+      alt="하트잼"
+      onclick="openImagePopup('하트3.html')"
+    >
+
+  </div>
+
+</section>
+
+<!-- PAGE 4 -->
+<section class="page page4">
+
+  <h2>하트플랜트 저널 쓰기</h2>
+
+  <div class="season-gallery">
+
+    <img
+      src="하트그림4.PNG"
+      alt="하트숲저널"
+      onclick="openImagePopup('하트4.html')"
+    >
+
+  </div>
+
+</section>
+
 </body>
 </html>
