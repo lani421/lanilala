@@ -1,95 +1,283 @@
-<!DOCTYPE html> <html lang="ko"> <head> <meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>마이홈피</title>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>숲 포털</title>
 
 <style>
-  body {
-    font-family: 'NanumSquare', sans-serif;
-    background: #f8f7f4; /* ← 살짝 부드럽게 */
-    color: #2f3a32;
-    margin: 0;
-    min-height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:sans-serif;
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 20px;
-    gap: 36px; /* ← 여백 조금 더 고급스럽게 */
-  }
+  background:url('back.png') center/cover no-repeat;
+  transition:all 2s ease;
+}
 
-  .item img {
-    width: 160px;
-    height: auto;
-  }
+/* 어두운 오버레이 → 클릭 후 밝아짐 */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:rgba(20,30,20,0.35);
+  transition:2s;
+  z-index:0;
+}
 
-  .wrap {
-    width: 100%;
-    max-width: 520px;
-    text-align: center;
-  }
+body.open::before{
+  background:rgba(20,30,20,0.05);
+}
 
-  h1 {
-    font-size: 1.9rem;
-    margin-bottom: 14px;
-    letter-spacing: -0.25px; /* ← 미세하게 고급 느낌 */
-  }
+/* 전체 컨테이너 */
+.container{
+  position:relative;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+}
 
-  p {
-    font-size: 1.02rem;
-    color: #6b7c72;
-    margin-bottom: 32px;
-    line-height: 1.7;
-  }
+/* 캐릭터 */
+.item{
+  position:relative;
+}
 
-  a {
-    display: block;
-    padding: 16px;
-    margin-bottom: 14px;
-    border-radius: 14px;
-    text-decoration: none;
-    color: #27423b;
-    background: #e6efe9;
+.item img{
+  width:260px;
+}
 
-    font-size: 1.05rem;
+/* 꽃 */
+.flower{
+  position:absolute;
+  top:-10px;
+  left:50%;
+  transform:translateX(-50%);
+  cursor:pointer;
+  animation:sway 3s ease-in-out infinite;
+  z-index:20;
+}
 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04); /* ← 핵심 */
-    transition: all 0.2s ease;
-  }
+.flower img{
+  width:120px;
+}
 
-  a:hover {
-    background: #dceae3;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-  }
+@keyframes sway{
+  0%{transform:translateX(-50%) rotate(-4deg);}
+  50%{transform:translateX(-50%) rotate(4deg);}
+  100%{transform:translateX(-50%) rotate(-4deg);}
+}
+
+/* 환영 문구 */
+.welcome{
+  position:fixed;
+  top:13%;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:1.8rem;
+  color:#eaffea;
+  opacity:0;
+  transition:2s;
+  z-index:50;
+  text-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.welcome.show{
+  opacity:1;
+}
+
+/* 메뉴 */
+.wrap{
+  text-align:center;
+  max-width:500px;
+  z-index:10;
+}
+
+a{
+  display:block;
+  padding:14px;
+  margin:10px 0;
+  border-radius:16px;
+  background:#e6efe9;
+  text-decoration:none;
+  color:#27423b;
+  transform:scale(0);
+  opacity:0;
+  transition:all .6s ease;
+}
+
+/* 새싹 → 잎 성장 느낌 */
+a.show{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* 꽃잎 */
+.petal{
+  position:fixed;
+  width:30px;
+  pointer-events:none;
+  z-index:999;
+}
+
+/* 반딧불 */
+.firefly{
+  position:fixed;
+  width:10px;
+  pointer-events:none;
+  opacity:0.8;
+  z-index:999;
+  animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(30px,-40px);}
+  100%{transform:translate(0,0);}
+}
+.click {
+            padding: 8px 15px;
+            background-color: #a1cf7b; /* 배경색 */
+            color: #f8f8f2; /* 글씨 색 - 아이보리 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            font-size: 15px; /* 글씨 크기 */
+            cursor: pointer; /* 마우스 커서 모양 변경 */
+            transition: background-color 0.3s, color 0.3s; /* 부드러운 효과 */
+        }
+
+        .click:hover {
+            background-color: #b19867; /* 마우스 호버 시 배경색 변경 */
+            color: #ffffff; /* 마우스 호버 시 글씨 색 변경 */
 </style>
 </head>
+
 <body>
-  <div class="container">
 
-    <div class="item">
-      <img src="꽃라니.jpeg" alt="꽃라니">
+<div class="welcome" id="welcome">
+  하트숲에 오신 걸 환영합니다 
+</div>
+
+<div class="container">
+
+  <div class="item">
+
+    <div class="flower" id="flower">
+      <img src="flower.png">
     </div>
 
-    <div class="wrap">
-      <h1>저널쓰기</h1>
-      <p>마음을 채우고,<br> 
-        접시 위 여백을 상상하며,<br>
-         나만의 숲을 탐험해보세요.</p>
-      
-    <a href="plate0.html" > 비어 있는 접시 (전시 프로젝트)</a>
-    <a href="seasonal3.html"> 하트플랜트 저널 </a>   
-    <a href="secondPage.html"> 오늘의 씨앗픽 </a>
-    <a href="sns비스킷.html" style="display:none;" >  버터토끼 30일 비스킷 루틴</a>
-    <a href="하트숲책.html" style="display:none;">  부크크 PDF 책 </a>
-    <a href="텀블벅.html" style="display:none;"> 하트플랜트 나만의 종이 저널책 응원하기. </a>
-    </div>
+    <img src="koala.png">
 
   </div>
+  <div class="click"> 꽃을 click~ </div>
+  <div class="wrap">
+
+    <a href="seasonal3.html">하트플랜트 저널</a>
+    <a href="plate0.html">비어 있는 접시</a>
+    <a href="sns비스킷.html">버터토끼 루틴</a>
+
+  </div>
+
+</div>
+
+<script>
+
+const flower =
+document.getElementById('flower');
+
+const welcome =
+document.getElementById('welcome');
+
+const links =
+document.querySelectorAll('a');
+
+flower.addEventListener('click',()=>{
+
+  document.body.classList.add('open');
+
+  const rect =
+  flower.getBoundingClientRect();
+
+  /* 꽃 사라짐 */
+  flower.style.transform='translateX(-50%) scale(0)';
+  flower.style.opacity='0';
+
+  /* 꽃잎 (위로 퍼졌다가 아래로 떨어짐) */
+  for(let i=0;i<70;i++){
+
+    const petal =
+    document.createElement('img');
+
+    petal.src='petal.png';
+
+    petal.className='petal';
+
+    petal.style.left=rect.left+'px';
+    petal.style.top=rect.top+'px';
+
+    document.body.appendChild(petal);
+
+    const x=(Math.random()-0.5)*800;
+    const up=-200-Math.random()*200;
+    const down=500+Math.random()*300;
+
+    petal.animate([
+
+      {transform:'translate(0,0)',opacity:1},
+
+      {offset:0.3,
+       transform:`translate(${x}px,${up}px)`,
+       opacity:1},
+
+      {transform:`translate(${x*1.2}px,${down}px)`,
+       opacity:0}
+
+    ],{
+      duration:5000,
+      easing:'ease-in-out',
+      fill:'forwards'
+    });
+
+    setTimeout(()=>petal.remove(),5000);
+  }
+
+  /* 반딧불 생성 */
+  for(let i=0;i<12;i++){
+
+    const f=document.createElement('img');
+    f.src='firefly.png';
+    f.className='firefly';
+
+    f.style.left=Math.random()*window.innerWidth+'px';
+    f.style.top=Math.random()*window.innerHeight+'px';
+
+    document.body.appendChild(f);
+  }
+
+  /* 환영문구 */
+  setTimeout(()=>{
+    welcome.classList.add('show');
+  },800);
+
+  /* 메뉴 성장 등장 */
+  links.forEach((link,i)=>{
+
+    setTimeout(()=>{
+
+      link.classList.add('show');
+
+    },1200+i*500);
+
+  });
+
+});
+
+</script>
+
 </body>
 </html>
