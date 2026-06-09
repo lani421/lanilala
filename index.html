@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,12 +16,11 @@ body{
   justify-content:center;
   align-items:center;
   font-family:sans-serif;
-
-  background:url('back.png') center/cover no-repeat;
+  background:#0e3b5f;
   transition:all 2s ease;
 }
 
-/* 어두운 오버레이 → 클릭 후 밝아짐 */
+/* 어두운 오버레이 */
 body::before{
   content:'';
   position:fixed;
@@ -44,20 +44,37 @@ body.open::before{
   gap:30px;
 }
 
-/* 캐릭터 */
+/* 캐릭터 영역 */
 .item{
   position:relative;
 }
 
-.item img{
+/* 코알라 뒤 배경 */
+
+/* 코알라 */
+#koala{
   width:260px;
+  position:relative;
+  z-index:10;
+}
+
+/* 윙크할 때 살짝 점프 */
+.koala-wink{
+  animation:winkJump 1.2s ease;
+}
+
+@keyframes winkJump{
+  0%{transform:translateY(0);}
+  30%{transform:translateY(-15px);}
+  60%{transform:translateY(-5px);}
+  100%{transform:translateY(0);}
 }
 
 /* 꽃 */
 .flower{
   position:absolute;
-  top:-10px;
-  left:50%;
+  top:15px;
+  left:45%;
   transform:translateX(-50%);
   cursor:pointer;
   animation:sway 3s ease-in-out infinite;
@@ -77,10 +94,10 @@ body.open::before{
 /* 환영 문구 */
 .welcome{
   position:fixed;
-  top:13%;
-  left:50%;
+  top: 95px;%;
+  left:51%;
   transform:translateX(-50%);
-  font-size:1.8rem;
+  font-size:1.5rem;
   color:#eaffea;
   opacity:0;
   transition:2s;
@@ -95,13 +112,13 @@ body.open::before{
 /* 메뉴 */
 .wrap{
   text-align:center;
-  max-width:500px;
+  max-width:400px;
   z-index:10;
 }
 
-a{
+.wrap a{
   display:block;
-  padding:14px;
+  padding:12px;
   margin:10px 0;
   border-radius:16px;
   background:#e6efe9;
@@ -112,8 +129,7 @@ a{
   transition:all .6s ease;
 }
 
-/* 새싹 → 잎 성장 느낌 */
-a.show{
+.wrap a.show{
   transform:scale(1);
   opacity:1;
 }
@@ -141,80 +157,70 @@ a.show{
   50%{transform:translate(30px,-40px);}
   100%{transform:translate(0,0);}
 }
-.click {
-            padding: 8px 15px;
-            background-color: #a1cf7b; /* 배경색 */
-            color: #f8f8f2; /* 글씨 색 - 아이보리 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            font-size: 15px; /* 글씨 크기 */
-            cursor: pointer; /* 마우스 커서 모양 변경 */
-            transition: background-color 0.3s, color 0.3s; /* 부드러운 효과 */
-        }
 
-        .click:hover {
-            background-color: #b19867; /* 마우스 호버 시 배경색 변경 */
-            color: #ffffff; /* 마우스 호버 시 글씨 색 변경 */
 </style>
 </head>
 
 <body>
 
 <div class="welcome" id="welcome">
-  하트숲에 오신 걸 환영합니다 
+  숲에 오신 걸 환영합니다 
 </div>
 
 <div class="container">
 
   <div class="item">
 
+    <!-- 꽃 -->
     <div class="flower" id="flower">
-      <img src="flower.png">
+      <img src="flower.png" alt="">
     </div>
 
-    <img src="koala.png">
+    <!-- 코알라 -->
+    <img src="koala1.png" id="koala" alt="코알라">
 
   </div>
-  <div class="click"> 꽃을 click~ </div>
-  <div class="wrap">
 
+  <div class="wrap">
     <a href="seasonal3.html">하트플랜트 저널</a>
     <a href="plate0.html">비어 있는 접시</a>
     <a href="sns비스킷.html">버터토끼 루틴</a>
-
   </div>
 
 </div>
 
 <script>
 
-const flower =
-document.getElementById('flower');
-
-const welcome =
-document.getElementById('welcome');
-
-const links =
-document.querySelectorAll('a');
+const flower = document.getElementById('flower');
+const welcome = document.getElementById('welcome');
+const links = document.querySelectorAll('.wrap a');
+const koala = document.getElementById('koala');
 
 flower.addEventListener('click',()=>{
 
+  /* 코알라 윙크 */
+  koala.src='koala2.png';
+  koala.classList.add('koala-wink');
+
+  setTimeout(()=>{
+    koala.src='koala1.png';
+    koala.classList.remove('koala-wink');
+  },1200);
+
   document.body.classList.add('open');
 
-  const rect =
-  flower.getBoundingClientRect();
+  const rect = flower.getBoundingClientRect();
 
   /* 꽃 사라짐 */
   flower.style.transform='translateX(-50%) scale(0)';
   flower.style.opacity='0';
 
-  /* 꽃잎 (위로 퍼졌다가 아래로 떨어짐) */
+  /* 꽃잎 생성 */
   for(let i=0;i<70;i++){
 
-    const petal =
-    document.createElement('img');
+    const petal=document.createElement('img');
 
     petal.src='petal.png';
-
     petal.className='petal';
 
     petal.style.left=rect.left+'px';
@@ -227,29 +233,32 @@ flower.addEventListener('click',()=>{
     const down=500+Math.random()*300;
 
     petal.animate([
-
       {transform:'translate(0,0)',opacity:1},
-
-      {offset:0.3,
-       transform:`translate(${x}px,${up}px)`,
-       opacity:1},
-
-      {transform:`translate(${x*1.2}px,${down}px)`,
-       opacity:0}
-
+      {
+        offset:0.3,
+        transform:`translate(${x}px,${up}px)`,
+        opacity:1
+      },
+      {
+        transform:`translate(${x*1.2}px,${down}px)`,
+        opacity:0
+      }
     ],{
       duration:5000,
       easing:'ease-in-out',
       fill:'forwards'
     });
 
-    setTimeout(()=>petal.remove(),5000);
+    setTimeout(()=>{
+      petal.remove();
+    },5000);
   }
 
   /* 반딧불 생성 */
   for(let i=0;i<12;i++){
 
     const f=document.createElement('img');
+
     f.src='firefly.png';
     f.className='firefly';
 
@@ -259,18 +268,16 @@ flower.addEventListener('click',()=>{
     document.body.appendChild(f);
   }
 
-  /* 환영문구 */
+  /* 환영 문구 */
   setTimeout(()=>{
     welcome.classList.add('show');
   },800);
 
-  /* 메뉴 성장 등장 */
+  /* 메뉴 등장 */
   links.forEach((link,i)=>{
 
     setTimeout(()=>{
-
       link.classList.add('show');
-
     },1200+i*500);
 
   });
@@ -281,3 +288,4 @@ flower.addEventListener('click',()=>{
 
 </body>
 </html>
+```
