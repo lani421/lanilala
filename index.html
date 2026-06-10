@@ -32,48 +32,7 @@ body::before{
 body.open::before{
   background:rgba(20,30,20,0.05);
 }
-body.open{
-  background:
-  radial-gradient(circle at center,
-  #c8f2d0 0%,
-  #9ed8bc 40%,
-  #6da7c5 100%);
-}
-.fog{
-  position:fixed;
-  inset:-20%;
-  z-index:1;
-  pointer-events:none;
 
-  background:
-  radial-gradient(
-    circle,
-    rgba(255,255,255,.12),
-    transparent 70%
-  );
-
-  filter:blur(60px);
-}
-
-.fog1{
-  animation:fogMove1 30s linear infinite;
-}
-
-.fog2{
-  animation:fogMove2 45s linear infinite;
-  opacity:.6;
-}
-
-@keyframes fogMove1{
-  from{transform:translateX(-10%);}
-  to{transform:translateX(10%);}
-}
-
-@keyframes fogMove2{
-  from{transform:translateX(15%);}
-  to{transform:translateX(-15%);}
-}
-  
 /* 전체 컨테이너 */
 .container{
   position:relative;
@@ -90,12 +49,6 @@ body.open{
 }
 
 /* 코알라 뒤 배경 */
-background:
-radial-gradient(circle at center,
-#244f41 0%,
-#16394d 50%,
-#0e2a42 100%);
-
 
 /* 코알라 */
 #koala{
@@ -118,9 +71,8 @@ radial-gradient(circle at center,
 
 /* 꽃 */
 .flower{
-  position:absolute;
-  top:-20px;
-  left:50%;
+  top:15px;
+  left:45%;
   transform:translateX(-50%);
   cursor:pointer;
   animation:sway 3s ease-in-out infinite;
@@ -140,7 +92,7 @@ radial-gradient(circle at center,
 /* 환영 문구 */
 .welcome{
   position:fixed;
-  top: 95px;%;
+  top: 95%;
   left:51%;
   transform:translateX(-50%);
   font-size:1.5rem;
@@ -154,7 +106,6 @@ radial-gradient(circle at center,
 .welcome.show{
   opacity:1;
 }
-  
 
 /* 메뉴 */
 .wrap{
@@ -209,8 +160,7 @@ radial-gradient(circle at center,
 </head>
 
 <body>
-<div class="fog fog1"></div>
-<div class="fog fog2"></div>
+
 <div class="welcome" id="welcome">
   숲에 오신 걸 환영합니다 
 </div>
@@ -260,10 +210,11 @@ flower.addEventListener('click',()=>{
   const rect = flower.getBoundingClientRect();
 
   /* 꽃 사라짐 */
+  flower.style.animation='none';
   flower.style.transform='translateX(-50%) scale(0)';
   flower.style.opacity='0';
-
-  /* 꽃잎 생성 */
+  
+    /* 꽃잎 생성 */
   for(let i=0;i<70;i++){
 
     const petal=document.createElement('img');
@@ -271,12 +222,12 @@ flower.addEventListener('click',()=>{
     petal.src='petal.png';
     petal.className='petal';
 
-    petal.style.left=rect.left+'px';
-    petal.style.top=rect.top+'px';
+    petal.style.left=(rect.left + rect.width/2)+'px';
+    petal.style.top=(rect.top + rect.height/2)+'px';
 
     document.body.appendChild(petal);
 
-    const x=(Math.random()-0.5)*800;
+    const x=(Math.random()-0.5)*window.innerWidth;
     const up=-200-Math.random()*200;
     const down=500+Math.random()*300;
 
@@ -314,8 +265,9 @@ flower.addEventListener('click',()=>{
     f.style.top=Math.random()*window.innerHeight+'px';
 
     document.body.appendChild(f);
+    flower.style.pointerEvents='none';
   }
-
+  
   /* 환영 문구 */
   setTimeout(()=>{
     welcome.classList.add('show');
@@ -336,4 +288,4 @@ flower.addEventListener('click',()=>{
 
 </body>
 </html>
-```
+
