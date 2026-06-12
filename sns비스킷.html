@@ -1,166 +1,490 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>버터토끼 루틴 & 응원</title>
+
+<title>버터토끼의 작은 비스킷 질문 한 조각</title>
 
 <style>
-body {
-  font-family: 'NanumSquare', sans-serif;
-  margin:0;
-  padding:0;
-  background:#fff7ee;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  min-height:100vh;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
-.container {
-  max-width: 500px;
-  width:90%;
-  text-align:center;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
-  background:#fff;
-  margin-top:20px;
+
+body{
+    font-family:
+    "Pretendard",
+    "Noto Sans KR",
+    sans-serif;
+
+    background:
+    linear-gradient(
+    180deg,
+    #fff8ef,
+    #ffe8d2
+    );
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
 }
-header img {
-  width:120px;
-  margin-bottom:10px;
+
+.container{
+    width:100%;
+    max-width:600px;
 }
-h1 {
-  color:#ff8c42;
-  margin:5px 0 15px;
-  font-size:1.6rem;
+
+.title{
+    text-align:center;
+    color:#8a5a44;
+    margin-bottom:20px;
 }
-select {
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  margin-bottom:10px;
-  width:100%;
+
+.title h1{
+    font-size:1.7rem;
+    margin-bottom:8px;
 }
-.card {
-  border-radius:15px;
-  padding:20px;
-  margin:10px 0;
-  text-align:left;
-  box-shadow:0 4px 10px rgba(0,0,0,0.05);
-  min-height:100px;
-  white-space:pre-wrap;
+
+.title p{
+    color:#a37d69;
 }
-.button {
-  margin:8px 5px;
-  padding:12px 20px;
-  background:#ff9f43;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+
+.biscuit{
+
+    background:#ffd89a;
+
+    border-radius:50px;
+
+    min-height:700px;
+
+    padding:40px 30px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+
 }
-.button:hover {
-  background:#ff7a00;
+
+/* 비스킷 점 */
+
+.biscuit::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:20px;
+
+    border-radius:40px;
+
+    background-image:
+    radial-gradient(
+    #d89f58 2px,
+    transparent 3px
+    );
+
+    background-size:32px 32px;
+
+    opacity:.25;
+
+    pointer-events:none;
 }
+
+.content{
+    position:relative;
+    z-index:2;
+}
+
+.question{
+
+    text-align:center;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    color:#704f3f;
+
+    margin-top:20px;
+    margin-bottom:30px;
+}
+
+.buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-bottom:30px;
+}
+
+.buttons button{
+
+    border:none;
+
+    background:#fffaf4;
+
+    color:#6f5646;
+
+    padding:12px 18px;
+
+    border-radius:15px;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+    transition:.25s;
+}
+
+.buttons button:hover{
+
+    transform:translateY(-2px);
+
+    background:#fff;
+}
+
+.rabbit{
+
+    display:none;
+
+    width:260px;
+
+    margin:0 auto;
+
+    animation:float 3s ease-in-out infinite;
+}
+
+.show{
+    display:block;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-8px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.reply{
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    color:#5d4538;
+
+    line-height:1.8;
+
+    margin-top:25px;
+
+    min-height:120px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:0 20px;
+}
+
+.goodbye{
+
+    text-align:center;
+
+    margin-top:30px;
+
+    color:#7b6253;
+
+    opacity:0;
+
+    transition:.4s;
+
+    font-size:1rem;
+}
+
+.goodbye.show{
+    opacity:1;
+}
+
+.footer{
+
+    text-align:center;
+
+    margin-top:25px;
+
+    color:#9a7d6b;
+
+    font-size:.85rem;
+}
+
 </style>
+
 </head>
 
 <body>
+
 <div class="container">
 
-<header>
-<img src="버끼입체.png">
-<h1>오늘의 루틴 & 응원</h1>
-</header>
+<div class="title">
 
-<select id="routineSelect">
-<option value="">루틴 선택</option>
-</select>
+<h1>
+🐰 버터토끼의 작은 비스킷 질문 한 조각
+</h1>
 
-<div class="card" id="routineCard"></div>
-<div class="card" id="bunnyMessage"></div>
+<p>
+오늘도 버터토끼가 기다리고 있어.
+</p>
 
-<button class="button" onclick="doRoutine()">실행</button>
-<button class="button" onclick="randomRoutine()">랜덤 </button>
-<button class="button" onclick="goToBlog()">종이 다운로드</button>
+</div>
+
+<div class="biscuit">
+
+<div class="content">
+
+<div class="question">
+오늘은 어때?
+</div>
+
+<div class="buttons">
+
+<button onclick="talk('yes')">
+응
+</button>
+
+<button onclick="talk('no')">
+아니
+</button>
+
+<button onclick="talk('maybe')">
+글쎄
+</button>
+
+<button onclick="talk('dontknow')">
+모르겠어
+</button>
+
+<button onclick="talk('secret')">
+비밀
+</button>
+
+</div>
+
+<img
+id="rabbit"
+class="rabbit"
+src="images/rabbit_default.png"
+alt="버터토끼">
+
+<div
+id="reply"
+class="reply">
+
+버터토끼가 귀를 쫑긋 세우고 있어.
+
+</div>
+
+<div
+id="goodbye"
+class="goodbye">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+🍪 작은 질문 하나,
+작은 마음 한 조각
+
+</div>
 
 </div>
 
 <script>
 
-const routines = [
-"3분 스트레칭","좋아하는 음악 듣기","감사한 일 3가지 적기",
-"짧은 산책","명언 한 줄 읽기","10분 독서","물 한 잔 마시기",
-"잠깐 명상","그림 그리기","간단 글쓰기","좋은 일 1가지 적기",
-"햇빛 쬐기","기분 체크","몸 풀기","호흡 3분",
-"정리정돈","안부 메시지","감사 떠올리기","간식 먹기",
-"노래 듣기","긍정 문장","작은 목표","손편지","하루 계획",
-"웃음 영상","좋아하는 장소","사진 찍기","기분 아이콘",
-"10분 스트레칭","마음 다스리기"
+const rabbitImages = {
+
+yes:"images/rabbit_smile.png",
+
+no:"images/rabbit_sad.png",
+
+maybe:"images/rabbit_surprised.png",
+
+dontknow:"images/rabbit_sleepy.png",
+
+secret:"images/rabbit_magic.png"
+
+};
+
+const replies = {
+
+yes:[
+"그럴 줄 알았어. 귀가 먼저 알려줬거든.",
+"응은 작은 햇살 같아.",
+"비스킷도 고개를 끄덕였어.",
+"좋은 대답이네.",
+"오늘 공기가 조금 더 따뜻해졌어.",
+"버터 향이 나는 하루가 될지도 몰라.",
+"토끼 귀가 살짝 흔들렸어.",
+"응이라는 말은 생각보다 힘이 세.",
+"햇살 한 조각 챙겨갈래?",
+"작은 고개 끄덕임도 멋진 일이야."
+],
+
+no:[
+"그럴 수도 있지.",
+"오늘은 아니의 날이구나.",
+"비스킷도 한 번은 탔어.",
+"괜찮아. 그런 날도 있어.",
+"토끼도 가끔 고개를 젓는걸.",
+"아니라고 말할 수 있는 것도 용기야.",
+"오늘은 쉬어가는 페이지인가 봐.",
+"바람도 가끔 반대로 불어.",
+"조금 천천히 가자.",
+"그 대답도 충분해."
+],
+
+maybe:[
+"글쎄는 아직 결정되지 않은 구름이야.",
+"급하지 않으면 괜찮아.",
+"토끼도 가끔은 글쎄야.",
+"아직 모양이 만들어지는 중인가 봐.",
+"구름은 천천히 모양을 바꾸잖아.",
+"정답은 없어.",
+"비스킷도 굽는 중에는 결과를 몰라.",
+"그 말엔 여백이 있어서 좋아.",
+"오늘은 물음표를 들고 다니는 날이네.",
+"아직 결정하지 않아도 돼."
+],
+
+dontknow:[
+"모르는 채로 있어도 돼.",
+"토끼도 가끔 그래.",
+"모르겠다는 건 아직 찾는 중이라는 뜻이야.",
+"서두르지 않아도 괜찮아.",
+"답을 쉬게 두는 날도 필요해.",
+"길은 걸으면서 보이기도 해.",
+"모르겠다는 말은 생각보다 정직해.",
+"조금 더 기다려보자.",
+"아직 이름 없는 마음일 수도 있어.",
+"비스킷도 오븐 안에서는 미래를 몰라."
+],
+
+secret:[
+"좋아. 내가 지켜줄게.",
+"비스킷 금고에 넣어둘게.",
+"비밀은 조용한 주머니 같아.",
+"토끼 귀를 꼭 닫아둘게.",
+"오늘의 비밀은 안전해.",
+"아무에게도 말하지 않을게.",
+"달빛이 대신 맡아둘 거야.",
+"비밀은 가끔 더 반짝여.",
+"그 말은 마음 속 선반에 둘게.",
+"쉿. 토끼와 너만 아는 이야기야."
+]
+
+};
+
+const endings = [
+
+"오늘도 와줘서 고마워.",
+"비스킷 한 조각 챙겨가.",
+"좋은 하루가 기다리고 있을 거야.",
+"토끼는 여기서 기다릴게.",
+"또 생각나면 놀러 와.",
+"햇살을 하나 주머니에 넣어둘까?",
+"조심히 가.",
+"오늘도 수고했어.",
+"작은 평온이 함께하길.",
+"다음 질문은 나중에 물어볼게."
+
 ];
 
-const messages = [
-"오늘도 잘했어요 ","작은 걸음도 의미 있어요",
-"버터토끼가 응원해요","포기하지 마세요",
-"행복 포인트 획득!","오늘도 빛나요",
-"성장하고 있어요","스스로 칭찬하세요"
-];
+function talk(type){
 
-const select = document.getElementById("routineSelect");
-const routineCard = document.getElementById("routineCard");
-const bunnyCard = document.getElementById("bunnyMessage");
+const rabbit =
+document.getElementById("rabbit");
 
-routines.forEach((r,i)=>{
-  const opt = document.createElement("option");
-  opt.value = i;
-  opt.textContent = r;
-  select.appendChild(opt);
-});
+rabbit.classList.add("show");
 
-// 하루 1회 체크
-function canRunToday(){
-  const today = new Date().toDateString();
-  const done = localStorage.getItem("doneDate");
-  if(done === today){
-    alert("오늘은 이미 완료했어요 ");
-    return false;
-  }
-  localStorage.setItem("doneDate", today);
-  return true;
+rabbit.src =
+rabbitImages[type];
+
+const reply =
+replies[type][
+Math.floor(
+Math.random() *
+replies[type].length
+)];
+
+document.getElementById(
+"reply"
+).innerHTML =
+"🐰<br><br>" + reply;
+
+const ending =
+endings[
+Math.floor(
+Math.random() *
+endings.length
+)];
+
+const goodbye =
+document.getElementById(
+"goodbye"
+);
+
+goodbye.innerHTML =
+"<br>🍪<br><br>" +
+ending;
+
+goodbye.classList.add(
+"show"
+);
+
+if(Math.random() < 0.05){
+
+rabbit.src =
+"images/rabbit_magic.png";
+
+document.getElementById(
+"reply"
+).innerHTML =
+"🌙<br><br>달빛 비스킷이 구워졌어.<br>오늘은 조금 특별한 날이야.";
+
 }
 
-// 실행
-function doRoutine(){
-  if(!canRunToday()) return;
-
-  const idx = select.value;
-  if(idx === "") return alert("루틴 선택해주세요");
-
-  const routine = routines[idx];
-  const msg = messages[Math.floor(Math.random()*messages.length)];
-
-  routineCard.innerHTML = ` ${routine}`;
-  bunnyCard.innerHTML = ` ${msg}`;
-
-  localStorage.setItem("lastRoutine", routine);
-  localStorage.setItem("lastMessage", msg);
-}
-
-// 랜덤
-function randomRoutine(){
-  const idx = Math.floor(Math.random()*routines.length);
-  select.value = idx;
-  doRoutine();
-}
-
-// 블로그 이동
-function goToBlog(){
-  if(confirm("종이 루틴 다운로드 하러 갈까요?")){
-    window.location.href = "https://naver.com";
-  }
 }
 
 </script>
+
 </body>
 </html>
