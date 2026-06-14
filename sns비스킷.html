@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -7,346 +6,218 @@
 
 <title>버터토끼의 작은 비스킷 질문 한 조각</title>
 
+<!-- GSAP (CDN) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <style>
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:"Pretendard","Noto Sans KR",sans-serif;
 }
 
 body{
-    font-family:
-    "Pretendard",
-    "Noto Sans KR",
-    sans-serif;
-
-    background:
-    linear-gradient(
-    180deg,
-    #fff8ef,
-    #ffe8d2
-    );
-
+    background: linear-gradient(180deg,#fff8ef,#ffe8d2);
     min-height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     padding:20px;
 }
 
 .container{
     width:100%;
-    max-width:600px;
-}
-
-.title{
+    max-width:500px;
     text-align:center;
-    color:#8a5a44;
-    margin-bottom:20px;
 }
 
+/* 타이틀 */
 .title h1{
-    font-size:1.7rem;
-    margin-bottom:8px;
+    font-size:1.6rem;
+    color:#7a4f3c;
 }
 
 .title p{
-    color:#a37d69;
+    color:#a07a6b;
+    margin-top:6px;
 }
 
-.biscuit{
-
+/* 카드 */
+.card{
+    margin-top:25px;
     background:#ffd89a;
-
-    border-radius:50px;
-
-    min-height:700px;
-
-    padding:40px 30px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 15px 35px rgba(0,0,0,.08);
-
-}
-
-/* 비스킷 점 */
-
-.biscuit::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:20px;
-
     border-radius:40px;
-
-    background-image:
-    radial-gradient(
-    #d89f58 2px,
-    transparent 3px
-    );
-
-    background-size:32px 32px;
-
-    opacity:.25;
-
-    pointer-events:none;
+    padding:40px 25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    position:relative;
+    overflow:hidden;
 }
 
+/* 점무늬 */
+.card::before{
+    content:"";
+    position:absolute;
+    inset:20px;
+    background-image: radial-gradient(#c98f4f 2px, transparent 3px);
+    background-size:28px 28px;
+    opacity:.25;
+}
+
+/* 내용 */
 .content{
     position:relative;
     z-index:2;
 }
 
+/* 질문 */
 .question{
-
-    text-align:center;
-
-    font-size:1.5rem;
-
+    font-size:1.4rem;
     font-weight:700;
-
-    color:#704f3f;
-
-    margin-top:20px;
-    margin-bottom:30px;
+    color:#5b3d2f;
+    margin-bottom:25px;
 }
 
+/* 버튼 */
 .buttons{
-
     display:flex;
-
     flex-wrap:wrap;
-
     justify-content:center;
-
     gap:10px;
-
-    margin-bottom:30px;
 }
 
-.buttons button{
-
+button{
     border:none;
-
+    padding:12px 16px;
+    border-radius:14px;
     background:#fffaf4;
-
-    color:#6f5646;
-
-    padding:12px 18px;
-
-    border-radius:15px;
-
     cursor:pointer;
-
+    transition:.2s;
     font-size:1rem;
-
-    transition:.25s;
+    color:#6a4f3f;
 }
 
-.buttons button:hover{
-
+button:hover{
     transform:translateY(-2px);
-
     background:#fff;
 }
 
+/* 토끼 */
 .rabbit{
-
+    width:220px;
+    margin:20px auto 0;
     display:none;
-
-    width:260px;
-
-    margin:0 auto;
-
-    animation:float 3s ease-in-out infinite;
 }
 
-.show{
+.rabbit.show{
     display:block;
 }
 
-@keyframes float{
-
-0%{
-transform:translateY(0);
-}
-
-50%{
-transform:translateY(-8px);
-}
-
-100%{
-transform:translateY(0);
-}
-
-}
-
+/* 답장 */
 .reply{
-
-    text-align:center;
-
+    margin-top:20px;
     font-size:1.2rem;
+    color:#4b362a;
+    min-height:80px;
+}
 
-    color:#5d4538;
-
-    line-height:1.8;
-
+/* 마지막 메시지 */
+.end{
     margin-top:25px;
-
-    min-height:120px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:0 20px;
-}
-
-.goodbye{
-
-    text-align:center;
-
-    margin-top:30px;
-
-    color:#7b6253;
-
     opacity:0;
-
     transition:.4s;
-
-    font-size:1rem;
+    color:#7b5c4b;
 }
 
-.goodbye.show{
+.end.show{
     opacity:1;
 }
 
-.footer{
-
-    text-align:center;
-
-    margin-top:25px;
-
-    color:#9a7d6b;
-
-    font-size:.85rem;
+/* 버튼 이동 */
+.journalBtn{
+    display:none;
+    margin-top:20px;
+    padding:14px 22px;
+    border-radius:18px;
+    background:#ff9f43;
+    color:white;
+    font-size:1rem;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="title">
+    <div class="title">
+        <h1>🐰 버터토끼</h1>
+        <p>오늘도 비스킷 한 조각</p>
+    </div>
 
-<h1>
-🐰 버터토끼의 작은 비스킷 질문 한 조각
-</h1>
+    <div class="card">
 
-<p>
-오늘도 버터토끼가 기다리고 있어.
-</p>
+        <div class="content">
 
-</div>
+            <!-- 질문 -->
+            <div class="question" id="question">
+                오늘 비스킷 한 조각 먹고 갈래?
+            </div>
 
-<div class="biscuit">
+            <!-- 버튼 -->
+            <div class="buttons">
+                <button onclick="talk('yes')">🍪 응</button>
+                <button onclick="talk('no')">🍪 아니</button>
+                <button onclick="talk('maybe')">🍪 글쎄</button>
+                <button onclick="talk('dontknow')">🍪 모르겠어</button>
+                <button onclick="talk('secret')">🍪 비밀</button>
+            </div>
 
-<div class="content">
+            <!-- 토끼 -->
+            <img id="rabbit" class="rabbit" src="rabbit_default.png">
 
-<div class="question">
-오늘은 어때?
-</div>
+            <!-- 답장 -->
+            <div id="reply" class="reply">
+                버터토끼가 기다리고 있어…
+            </div>
 
-<div class="buttons">
+            <!-- 마지막 메시지 -->
+            <div id="end" class="end"></div>
 
-<button onclick="talk('yes')">
-응
-</button>
+            <!-- journal 이동 -->
+            <button id="journalBtn" class="journalBtn"
+            onclick="location.href='journal.html'">
+                🍪 오늘의 비스킷 받기
+            </button>
 
-<button onclick="talk('no')">
-아니
-</button>
-
-<button onclick="talk('maybe')">
-글쎄
-</button>
-
-<button onclick="talk('dontknow')">
-모르겠어
-</button>
-
-<button onclick="talk('secret')">
-비밀
-</button>
-
-</div>
-
-<img
-id="rabbit"
-class="rabbit"
-src="images/rabbit_default.png"
-alt="버터토끼">
-
-<div
-id="reply"
-class="reply">
-
-버터토끼가 귀를 쫑긋 세우고 있어.
-
-</div>
-
-<div
-id="goodbye"
-class="goodbye">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="footer">
-
-🍪 작은 질문 하나,
-작은 마음 한 조각
-
-</div>
+        </div>
+    </div>
 
 </div>
 
 <script>
 
+/* --------------------------
+   감정별 토끼 이미지
+-------------------------- */
 const rabbitImages = {
-
-yes:"images/rabbit_smile.png",
-
-no:"images/rabbit_sad.png",
-
-maybe:"images/rabbit_surprised.png",
-
-dontknow:"images/rabbit_sleepy.png",
-
-secret:"images/rabbit_magic.png"
-
+    yes:"rabbit_smile.png",
+    no:"rabbit_sad.png",
+    maybe:"rabbit_tired.png",
+    dontknow:"rabbit_angry.png",
+    secret:"rabbit_magic.png"
 };
 
+/* --------------------------
+   버터토끼 반응
+-------------------------- */
 const replies = {
-
 yes:[
+"응은 작은 햇살 같아.",
+"좋은 선택이야.",
+"오늘은 따뜻해질 거야.",
 "그럴 줄 알았어. 귀가 먼저 알려줬거든.",
 "응은 작은 햇살 같아.",
 "비스킷도 고개를 끄덕였어.",
@@ -358,8 +229,10 @@ yes:[
 "햇살 한 조각 챙겨갈래?",
 "작은 고개 끄덕임도 멋진 일이야."
 ],
-
 no:[
+"괜찮아, 그런 날도 있어.",
+"토끼도 가끔 고개를 젓지.",
+"쉬어도 돼.",
 "그럴 수도 있지.",
 "오늘은 아니의 날이구나.",
 "비스킷도 한 번은 탔어.",
@@ -371,8 +244,9 @@ no:[
 "조금 천천히 가자.",
 "그 대답도 충분해."
 ],
-
 maybe:[
+"아직 구름 속이구나.",
+"천천히 생각해도 돼.",
 "글쎄는 아직 결정되지 않은 구름이야.",
 "급하지 않으면 괜찮아.",
 "토끼도 가끔은 글쎄야.",
@@ -384,8 +258,10 @@ maybe:[
 "오늘은 물음표를 들고 다니는 날이네.",
 "아직 결정하지 않아도 돼."
 ],
-
 dontknow:[
+"모르겠어도 괜찮아.",
+"답이 없는 날도 있어.",
+
 "모르는 채로 있어도 돼.",
 "토끼도 가끔 그래.",
 "모르겠다는 건 아직 찾는 중이라는 뜻이야.",
@@ -397,8 +273,10 @@ dontknow:[
 "아직 이름 없는 마음일 수도 있어.",
 "비스킷도 오븐 안에서는 미래를 몰라."
 ],
-
 secret:[
+"비밀은 잘 간직할게.",
+"쉿, 토끼만 알고 있을게.",
+
 "좋아. 내가 지켜줄게.",
 "비스킷 금고에 넣어둘게.",
 "비밀은 조용한 주머니 같아.",
@@ -410,78 +288,69 @@ secret:[
 "그 말은 마음 속 선반에 둘게.",
 "쉿. 토끼와 너만 아는 이야기야."
 ]
-
 };
 
-const endings = [
+/* --------------------------
+   주간 메시지 (9단계)
+-------------------------- */
+const endings = {
+1:"씨앗은 조용히 자라고 있어.",
+2:"뿌리는 보이지 않아도 깊어지고 있어.",
+3:"줄기가 하늘을 향해 올라가고 있어.",
+4:"햇빛이 오늘도 스며들고 있어.",
+5:"바람이 흔들어도 괜찮아.",
+6:"초록이 조용히 퍼지고 있어.",
+7:"꽃이 피어날 준비를 하고 있어.",
+8:"열매가 맺히는 시간.",
+9:"이제 숲이 되었어.",
+10:"오늘도 와줘서 고마워.",
+11:"비스킷 한 조각 챙겨가.",
+12:"좋은 하루가 기다리고 있을 거야.",
+13:"토끼는 여기서 기다릴게.",
+14:"또 생각나면 놀러 와.",
+15:"햇살을 하나 주머니에 넣어둘까?",
+16:"조심히 가.",
+17:"오늘도 수고했어.",
+18:"작은 평온이 함께하길.",
+19:"다음 질문은 나중에 물어볼게."
+};
 
-"오늘도 와줘서 고마워.",
-"비스킷 한 조각 챙겨가.",
-"좋은 하루가 기다리고 있을 거야.",
-"토끼는 여기서 기다릴게.",
-"또 생각나면 놀러 와.",
-"햇살을 하나 주머니에 넣어둘까?",
-"조심히 가.",
-"오늘도 수고했어.",
-"작은 평온이 함께하길.",
-"다음 질문은 나중에 물어볼게."
+/* --------------------------
+   현재 Day (임시)
+-------------------------- */
+let day = parseInt(localStorage.getItem("day")) || 1;
 
-];
-
+/* --------------------------
+   메인 함수
+-------------------------- */
 function talk(type){
 
-const rabbit =
-document.getElementById("rabbit");
+    const rabbit = document.getElementById("rabbit");
+    const reply = document.getElementById("reply");
+    const end = document.getElementById("end");
 
-rabbit.classList.add("show");
+    /* GSAP 자리 1 - 토끼 등장 */
+    // gsap.from("#rabbit", {scale:0, duration:0.5, ease:"back.out"});
 
-rabbit.src =
-rabbitImages[type];
+    rabbit.src = rabbitImages[type];
+    rabbit.classList.add("show");
 
-const reply =
-replies[type][
-Math.floor(
-Math.random() *
-replies[type].length
-)];
+    const r = replies[type];
+    const text = r[Math.floor(Math.random()*r.length)];
 
-document.getElementById(
-"reply"
-).innerHTML =
-"🐰<br><br>" + reply;
+    reply.innerText = " " + text;
 
-const ending =
-endings[
-Math.floor(
-Math.random() *
-endings.length
-)];
+    /* GSAP 자리 2 - 답장 등장 */
+    // gsap.from("#reply", {opacity:0, y:10});
 
-const goodbye =
-document.getElementById(
-"goodbye"
-);
+    end.innerText = "🍪 " + endings[Math.ceil(day/7)];
+    end.classList.add("show");
 
-goodbye.innerHTML =
-"<br>🍪<br><br>" +
-ending;
+    /* journal 버튼 표시 */
+    document.getElementById("journalBtn").style.display = "block";
 
-goodbye.classList.add(
-"show"
-);
-
-if(Math.random() < 0.05){
-
-rabbit.src =
-"images/rabbit_magic.png";
-
-document.getElementById(
-"reply"
-).innerHTML =
-"🌙<br><br>달빛 비스킷이 구워졌어.<br>오늘은 조금 특별한 날이야.";
-
-}
-
+    /* GSAP 자리 3 - 버튼 등장 */
+    // gsap.from("#journalBtn", {scale:0.8, opacity:0});
 }
 
 </script>
