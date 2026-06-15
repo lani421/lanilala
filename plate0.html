@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>씨앗의 접시</title>
+<title>얼음의 접시</title>
 
 <style>
 body {
@@ -18,7 +18,7 @@ body {
 }
 
 .plate {
-  max-width: 60%;
+  max-width: 50%;
   padding: 40px 25px;
   text-align: center;
 }
@@ -34,65 +34,14 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* 🔥 핵심: 이미지 기준 영역 */
-.plate-image {
-  position: relative;
-  display: inline-block;
-}
-
-/* 접시 이미지 */
-#seedPlate {
-  height: 260px;
-  width: auto;
-  display: block;
-  cursor: pointer;
+#plateImg {
+  width: 100%;
+  max-height: 260px;
   object-fit: contain;
-}
-
-/* 새싹 */
-#sprout {
-  position: absolute;
-
-  left: 50%;
-  bottom: 35%;
-
-  width: 160px;
-
-  opacity: 0;
-
-  transform:
-    translateX(-50%)
-    scaleY(0);
-
-  transform-origin: bottom center;
-
-  transition:
-    transform 2s ease,
-    opacity 1s ease;
-}
-
-/* 성장 */
-#sprout.grow {
-  opacity: 1;
-
-  transform:
-    translateX(-50%)
-    scaleY(1);
-}
-
-/* 바람 흔들림 */
-#sprout.sway {
-  animation: springBreeze 3s ease-in-out;
-}
-
-@keyframes springBreeze {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  15% { transform: translateX(-50%) rotate(-4deg); }
-  30% { transform: translateX(-50%) rotate(3deg); }
-  45% { transform: translateX(-50%) rotate(-3deg); }
-  60% { transform: translateX(-50%) rotate(2deg); }
-  80% { transform: translateX(-50%) rotate(-1deg); }
-  100% { transform: translateX(-50%) rotate(0deg); }
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
 }
 
 .symbol {
@@ -115,6 +64,40 @@ a {
   color: #6b8f7b;
   text-decoration: none;
 }
+
+/* 접시 흔들림 */
+.shake {
+  animation: windMove 1.4s ease;
+}
+
+@keyframes windMove {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  15% {
+    transform: scale(1.02) rotate(-3deg);
+  }
+  30% {
+    transform: scale(1.04) rotate(3deg);
+  }
+  45% {
+    transform: scale(1.03) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  80% {
+    transform: scale(1.02) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* 바람이 스쳐가는 듯한 그림자 */
+.glow {
+  filter: drop-shadow(0 0 18px rgba(180, 200, 220, 0.5));
+}
 </style>
 </head>
 
@@ -122,82 +105,68 @@ a {
 
 <div class="plate">
 
-  <h1>접시 위의 씨앗</h1>
+  <h1>얼음의 빈 접시</h1>
 
   <div class="keywords">
-    희망
+    생존
   </div>
 
-  <div class="plate-image" id="plateBox">
-
-    <img src="plate01.png"
-      alt="씨앗의 접시"
-      id="seedPlate"
-    >
-
-    <img
-      src="sprout.png"
-      alt="새싹"
-      id="sprout"
-    >
-
-  </div>
+  <img
+    src="plate001.png"
+    alt="얼음의 접시"
+    id="plateImg"
+  >
 
   <div class="symbol">
-    씨앗을 click~ <br>
-    접시 위에 씨앗 하나가 올려져 있다.
+    click ^ <br>
+    얼음같은 공간에 놓인 접시는<br>
+    아직 중심을 잡고 있다.
   </div>
 
-  <div class="question" id="questionText">
-    내가 아직 키우지 못한 씨앗은 무엇일까?<br>
-    <strong>당신은 어떤 씨앗을 올릴 것인가.</strong>
+  <div class="question">
+    이 접시가 비어 있는 이유는 <br>
+    아직 올려두지 못한 것이 있기 때문이다.<br>
+    <strong>당신은 무엇을 아직 올리지 못했는가?</strong>
   </div>
 
-  <a href="index.html">← 돌아가기</a><br>
+  <a href="index0.html">← 돌아가기</a><br>
+  <a href="plate1.html">다음 →</a>
 
 </div>
 
-<!-- 봄바람 소리 -->
-<audio id="springWind" preload="auto">
-  <source src="spring-wind.mp3" type="audio/mpeg">
+<audio id="windSound" preload="auto">
+  <source src="wind.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-
-const plate = document.getElementById("seedPlate");
-const sprout = document.getElementById("sprout");
-const wind = document.getElementById("springWind");
-const question = document.getElementById("questionText");
-
-let grown = false;
+const plate = document.getElementById("plateImg");
+const wind = document.getElementById("windSound");
 
 plate.addEventListener("click", () => {
 
-  if (grown) return;
+  // 애니메이션 재시작
+  plate.classList.remove("shake");
+  plate.classList.remove("glow");
 
-  grown = true;
+  void plate.offsetWidth;
 
-  // 봄바람
+  plate.classList.add("shake");
+  plate.classList.add("glow");
+
+  setTimeout(() => {
+    plate.classList.remove("glow");
+  }, 1400);
+
+  // 바람 소리 재생
+  wind.pause();
   wind.currentTime = 0;
-  wind.volume = 0.7;
-  wind.play();
+  wind.volume = 0.75;
 
-  // 새싹 성장
-  sprout.classList.add("grow");
-
-  // 문구 변화
-  setTimeout(() => {
-    question.innerHTML =
-      "씨앗은 이미 자라기 시작했다.<br><strong>모든 성장은 누군가의 기다림에서 시작된다.</strong>";
-  }, 1500);
-
-  // 흔들림
-  setTimeout(() => {
-    sprout.classList.add("sway");
-  }, 2000);
+  wind.play().catch(error => {
+    console.log(error);
+  });
 
 });
-
 </script>
 
 </body>
