@@ -1,92 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-      .garden {
-        text-align:center;
-      }
-      /* 스타일을 통해 오디오 플레이어 디자인을 개선할 수 있습니다. */
-      .audio-player {
-          max-width: 500px;
-          margin: 0 auto;
-          text-align: center;
-          background-color: #371272;
-          padding: 10px;
-          border-radius: 10px;
-      }
-      img {
-            width: 300px;  /* 이미지 너비를 300px로 설정 */
-            height: 300px;  /* 높이는 자동으로 비율을 맞춰 조정 */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유칼립투스 정원 음악</title>
 
-  </style>
-    <link href="styles.css" rel="stylesheet"/>
+<style>
+body{
+    margin:0;
+    font-family:"맑은 고딕",sans-serif;
+    background:#f4f8f4;
+    text-align:center;
+}
+
+h1{
+    color:#2d5a27;
+    margin-top:20px;
+}
+
+/* 음악 영역 */
+.audio-player{
+    max-width:60px;
+    margin:20px auto;
+}
+
+/* 전체 꽃밭 영역 */
+.garden-scene{
+    width:900px;
+    max-width:95%;
+    margin:30px auto;
+}
+
+/* 배경 + 캐릭터 묶음 */
+.garden-wrap{
+    position:relative;
+    width:80%;
+    margin:0 auto;
+}
+
+/* 꽃밭 이미지 */
+.background{
+    width:100%;
+    display:block;
+    border-radius:20px;
+}
+
+/* 캐릭터 */
+.character{
+    position:absolute;
+    width:clamp(50px, 10vw, 100px);
+    animation:dance 1s infinite ease-in-out;
+    animation-play-state:paused;
+    transform-origin:center bottom;
+    cursor:pointer;
+}
+
+@keyframes dance{
+    0%{ transform:rotate(-8deg); }
+    50%{ transform:rotate(8deg); }
+    100%{ transform:rotate(-8deg); }
+}
+
+/* 캐릭터 위치 */
+.c1{ left:10%; bottom:32%; }
+.c2{ left:30%; bottom:35%; }
+.c3{ left:55%; bottom:32%; }
+.c4{ left:75%; bottom:38%; }
+
+footer{
+    margin-top:30px;
+}
+
+footer a{
+    color:#2d5a27;
+    text-decoration:none;
+    font-weight:bold;
+}
+.home-btn{
+    display:inline-block;
+    margin:20px 0;
+    padding:12px 28px;
+
+    background:linear-gradient(
+        135deg,
+        #6fbf73,
+        #4a9c58
+    );
+
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:1.1rem;
+
+    border-radius:30px;
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.15),
+        0 0 15px rgba(111,191,115,0.3);
+
+    transition:all .3s ease;
+}
+
+.home-btn:hover{
+    transform:translateY(-3px);
+    background:linear-gradient(
+        135deg,
+        #7fd484,
+        #5aae65
+    );
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.2),
+        0 0 20px rgba(111,191,115,0.5);
+}
+
+.home-btn:active{
+    transform:translateY(1px);
+}
+</style>
 </head>
+
 <body>
-  <div id="garden"> 
-    <main>
-        <h1>유칼립투스 정원 <strong>음악</strong></h1>
-        <section><style>
-          /* 스타일을 통해 오디오 플레이어 디자인을 개선할 수 있습니다. */
-          .audio-player {
-              max-width: 600px;
-              margin: 0 auto;
-              text-align: center;
-              background-color: hwb(214 81% 13% / 0.849);
-              padding: 10px;
-              border-radius: 10px;
-          }
-        </style>
-            <h2>라니와 함께 듣는 힐링 뮤직</h2>
-        </section>
-        <img src="flowergd.jpeg" alt="정원">
 
-          <section>
-            <h2>음악 리스트</h2>
-            <ul>
-              <div class="audio-player">
+<h1>🌿 유칼립투스 정원 음악 🌿</h1>
+<h2>라니와 함께 듣는 힐링 뮤직</h2>
 
-              <li>매화</li>
-                <h2>음악 재생</h2>
-                <audio controls>
-                    <source src="meditation.mp3" type="audio/mp3">
-                </audio>                    
-              <li>난</li>
-              <h2>음악 재생</h2>
-                <audio controls>
-                    <source src="Anything.mp3" type="audio/mp3">
-            </ul>
-          </section>
-          <div id="piano"> 
-          <div class="keys"> 
-            <div  class="key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div  class="key black--key"></div>
-            <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-        <div class="key black--key"></div>
-          </div>
-          </div>
-         <p>이전 <a href="index.html">페이지</a>로 돌아가기</p>
-    </main>
-  </div>
+<!-- 🎵 SoundCloud -->
+<div class="audio-player">
+    <iframe
+        id="sc-player"
+        width="100%"
+        height="120"
+        scrolling="no"
+        frameborder="no"
+        allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/833903848&color=%235ca6d6&auto_play=false&visual=false">
+    </iframe>
+</div>
+
+<!-- 🌸 꽃밭 -->
+<div class="garden-scene">
+
+    <div class="garden-wrap">
+
+        <img src="flowergd.png" alt="꽃밭" class="background">
+
+        <img src="c1.png" alt="캐릭터1" class="character c1">
+        <img src="c2.png" alt="캐릭터2" class="character c2">
+        <img src="c3.png" alt="캐릭터3" class="character c3">
+        <img src="c4.png" alt="캐릭터4" class="character c4">
+
+    </div>
+
+</div>
+<footer>
+    <a href="index.html" class="home-btn">
+        🌿 메인 정원으로
+    </a>
+</footer>
+
+<!--  SoundCloud API -->
+<script src="https://w.soundcloud.com/player/api.js"></script>
+
+<script>
+const iframe = document.getElementById("sc-player");
+const widget = SC.Widget(iframe);
+
+const characters = document.querySelectorAll(".character");
+
+/* ▶ 재생 */
+widget.bind(SC.Widget.Events.PLAY, function () {
+    characters.forEach(c => {
+        c.style.animationPlayState = "running";
+    });
+});
+
+/* ⏸ 일시정지 */
+widget.bind(SC.Widget.Events.PAUSE, function () {
+    characters.forEach(c => {
+        c.style.animationPlayState = "paused";
+    });
+});
+
+/* ⏹ 종료 */
+widget.bind(SC.Widget.Events.FINISH, function () {
+    characters.forEach(c => {
+        c.style.animationPlayState = "paused";
+    });
+});
+</script>
+
 </body>
 </html>
