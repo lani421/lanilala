@@ -15,7 +15,21 @@ body{
   justify-content:center;
   align-items:center;
   font-family:sans-serif;
-  background:#0e3b5f;
+  transition:all 2s ease;
+
+   background:
+  radial-gradient(
+    circle at top,
+    rgba(180,140,255,0.25),
+    transparent 45%
+  ),
+  linear-gradient(
+    135deg,
+    #241339,
+    #1b3e5d,
+    #18432b
+  );
+
   transition:all 2s ease;
 }
 
@@ -29,10 +43,20 @@ body::before{
   z-index:0;
 }
 
-body.open::before{
-  background:rgba(20,30,20,0.05);
+body.open{
+  background:
+  radial-gradient(
+    circle at top,
+    rgba(240,200,255,0.03),
+    transparent 55%
+  ),
+  linear-gradient(
+    135deg,
+    #6d4acb,
+    #5b8fd4,
+    #6ccf86
+  );
 }
-
 /* 전체 컨테이너 */
 .container{
   position:relative;
@@ -181,7 +205,7 @@ body.open::before{
   </div>
 
   <div class="wrap">
-    <a href="seasonal3.html">하트플랜트 저널</a>
+    <a href="seasonal3.html" >하트플랜트 저널</a>
     <a href="plate0.html">비어 있는 접시</a>
     <a href="sns비스킷.html">버터토끼 루틴</a>
   </div>
