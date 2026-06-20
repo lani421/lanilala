@@ -113,7 +113,23 @@ body.open{
   50%{transform:translateX(-50%) rotate(4deg);}
   100%{transform:translateX(-50%) rotate(-4deg);}
 }
+ /* 클릭 글씨*/ 
+.f1 {
+  display: inline-block;
+  color: yellow;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border: 1px solid yellow;
+  border-radius: 10px;
+  text-align: center;
+  animation: blink 1s infinite alternate;
+}
 
+@keyframes blink {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+  
 /* 환영 문구 */
 .welcome{
   position:fixed;
@@ -201,7 +217,7 @@ body.open{
 
     <!-- 코알라 -->
     <img src="koala1.png" id="koala" alt="코알라">
-  <p>꽃 클릭~</p>
+  <div class=f1> 꽃 click~</div>
   </div>
 
   <div class="wrap">
