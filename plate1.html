@@ -34,7 +34,6 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* 🔥 핵심: 이미지 기준 영역 */
 .plate-image {
   position: relative;
   display: inline-block;
@@ -52,32 +51,21 @@ h1 {
 /* 새싹 */
 #sprout {
   position: absolute;
-
   left: 50%;
   bottom: 35%;
-
   width: 160px;
-
   opacity: 0;
 
-  transform:
-    translateX(-50%)
-    scaleY(0);
-
+  transform: translateX(-50%) scaleY(0);
   transform-origin: bottom center;
 
-  transition:
-    transform 2s ease,
-    opacity 1s ease;
+  transition: transform 2s ease, opacity 1s ease;
 }
 
 /* 성장 */
 #sprout.grow {
   opacity: 1;
-
-  transform:
-    translateX(-50%)
-    scaleY(1);
+  transform: translateX(-50%) scaleY(1);
 }
 
 /* 바람 흔들림 */
@@ -86,13 +74,13 @@ h1 {
 }
 
 @keyframes springBreeze {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  15% { transform: translateX(-50%) rotate(-4deg); }
-  30% { transform: translateX(-50%) rotate(3deg); }
-  45% { transform: translateX(-50%) rotate(-3deg); }
-  60% { transform: translateX(-50%) rotate(2deg); }
-  80% { transform: translateX(-50%) rotate(-1deg); }
-  100% { transform: translateX(-50%) rotate(0deg); }
+  0%   { transform: translateX(-50%) scaleY(1) rotate(0deg); }
+  15%  { transform: translateX(-50%) scaleY(1) rotate(-4deg); }
+  30%  { transform: translateX(-50%) scaleY(1) rotate(3deg); }
+  45%  { transform: translateX(-50%) scaleY(1) rotate(-3deg); }
+  60%  { transform: translateX(-50%) scaleY(1) rotate(2deg); }
+  80%  { transform: translateX(-50%) scaleY(1) rotate(-1deg); }
+  100% { transform: translateX(-50%) scaleY(1) rotate(0deg); }
 }
 
 .symbol {
@@ -124,22 +112,13 @@ a {
 
   <h1>접시 위의 씨앗</h1>
 
-  <div class="keywords">
-    희망
-  </div>
+  <div class="keywords">희망</div>
 
-  <div class="plate-image" id="plateBox">
+  <div class="plate-image">
 
-    <img src="plate01.png"
-      alt="씨앗의 접시"
-      id="seedPlate"
-    >
+    <img src="plate01.png" alt="씨앗의 접시" id="seedPlate">
 
-    <img
-      src="sprout.png"
-      alt="새싹"
-      id="sprout"
-    >
+    <img src="sprout.png" alt="새싹" id="sprout">
 
   </div>
 
@@ -149,7 +128,7 @@ a {
   </div>
 
   <div class="question" id="questionText">
-    내가 아직 키우지 못한 씨앗은<br> 
+    내가 아직 키우지 못한 씨앗은<br>
     무엇일까?<br>
     <strong>어떤 씨앗을 올릴 것인가.</strong>
   </div>
@@ -175,23 +154,26 @@ let grown = false;
 plate.addEventListener("click", () => {
 
   if (grown) return;
-
   grown = true;
 
-  // 봄바람
+  // 오디오 재생
   wind.currentTime = 0;
   wind.volume = 0.7;
-  wind.play();
+
+  wind.play().catch(err => {
+    console.log("오디오 재생 실패:", err);
+  });
 
   // 새싹 성장
   sprout.classList.add("grow");
 
-  // 문구 변화
+  // 문구 변경 (수정 핵심)
   setTimeout(() => {
-    question.innerHTML =
+    question.innerHTML = `
       씨앗은 이미 자라기 시작했다.<br>
       <strong>모든 성장은 <br>
-      누군가의 기다림에서 시작된다.</strong>;
+      누군가의 기다림에서 시작된다.</strong>
+    `;
   }, 1500);
 
   // 흔들림
