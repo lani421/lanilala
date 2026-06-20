@@ -3,199 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>유칼립투스 정원 음악</title>
+<title>유칼립투스 정원 게임</title>
 
 <style>
 body{
     margin:0;
-    font-family:"맑은 고딕",sans-serif;
-    background:#f4f8f4;
+    font-family:"맑은 고딕", sans-serif;
+    background:#f3f8f3;
     text-align:center;
 }
 
-h1{
-    color:#2d5a27;
-    margin-top:20px;
-}
+/* 🌿 제목 */
+h1{ margin-top:15px; color:#2d5a27; }
+h2{ color:#4a6b45; }
 
-/* 음악 영역 */
-.audio-player{
-    max-width:300px;
+/* 🎧 4개 음악 */
+.music-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    width:90%;
     margin:20px auto;
 }
 
-/* 전체 꽃밭 영역 */
-.garden-scene{
-    width:900px;
-    max-width:95%;
-    margin:30px auto;
+.track{
+    width:100%;
+    height:80px;
+    border-radius:10px;
 }
 
-/* 배경 + 캐릭터 묶음 */
+/* 🧮 점수 */
+.score-box{
+    font-size:18px;
+    margin:10px;
+    font-weight:bold;
+    color:#2d5a27;
+}
+
+/* 🌿 정원 */
 .garden-wrap{
     position:relative;
-    width:80%;
+    width:90%;
     margin:0 auto;
 }
 
-/* 꽃밭 이미지 */
 .background{
     width:100%;
-    display:block;
     border-radius:20px;
 }
 
-/* 캐릭터 */
+/* 🌸 꽃 레이어 */
+#flower-layer{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+
+.flower{
+    position:absolute;
+    font-size:20px;
+    animation:bloom 1s ease forwards;
+}
+
+@keyframes bloom{
+    0%{ transform:scale(0); opacity:0; }
+    100%{ transform:scale(1); opacity:1; }
+}
+
+/* 🐾 캐릭터 */
 .character{
     position:absolute;
-    width:clamp(50px, 10vw, 100px);
-    animation:dance 1s infinite ease-in-out;
-    animation-play-state:paused;
-    transform-origin:center bottom;
+    width:70px;
     cursor:pointer;
+    transform-origin:center bottom;
 }
 
-@keyframes dance{
-    0%{ transform:rotate(-8deg); }
-    50%{ transform:rotate(8deg); }
-    100%{ transform:rotate(-8deg); }
-}
-
-/* 캐릭터 위치 */
-.c1{ left:10%; bottom:32%; }
+.c1{ left:10%; bottom:30%; }
 .c2{ left:30%; bottom:35%; }
-.c3{ left:55%; bottom:32%; }
+.c3{ left:55%; bottom:30%; }
 .c4{ left:75%; bottom:38%; }
 
-footer{
-    margin-top:30px;
+/* 🎧 하단 플레이어 */
+.bottom-player{
+    margin:30px auto;
 }
 
-footer a{
-    color:#2d5a27;
-    text-decoration:none;
-    font-weight:bold;
+#mainPlayer{
+    width:90%;
+    height:80px;
+    border-radius:10px;
 }
-.home-btn{
-    display:inline-block;
-    margin:20px 0;
-    padding:12px 28px;
 
-    background:linear-gradient(
-        135deg,
-        #6fbf73,
-        #4a9c58
-    );
+/* 🎵 sway */
+.sway{
+    animation:sway 2s infinite ease-in-out;
+}
 
+@keyframes sway{
+    0%{ transform:rotate(-5deg); }
+    50%{ transform:rotate(5deg); }
+    100%{ transform:rotate(-5deg); }
+}
+
+button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#4a9c58;
     color:white;
-    text-decoration:none;
     font-weight:bold;
-    font-size:1.1rem;
-
-    border-radius:30px;
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,0.15),
-        0 0 15px rgba(111,191,115,0.3);
-
-    transition:all .3s ease;
-}
-
-.home-btn:hover{
-    transform:translateY(-3px);
-    background:linear-gradient(
-        135deg,
-        #7fd484,
-        #5aae65
-    );
-
-    box-shadow:
-        0 8px 18px rgba(0,0,0,0.2),
-        0 0 20px rgba(111,191,115,0.5);
-}
-
-.home-btn:active{
-    transform:translateY(1px);
+    cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<h1> 유칼립투스 정원 음악 </h1>
-<h2>라니와 함께 듣는 힐링 뮤직</h2>
+<h1>🌿 유칼립투스 정원 음악 게임</h1>
+<h2>라니의 힐링 정원</h2>
 
-<!-- 🎵 SoundCloud -->
-<div class="audio-player">
-    <iframe
-        id="sc-player"
-        width="100%"
-        height="60"
-        scrolling="no"
-        frameborder="no"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/833903848&color=%235ca6d6&auto_play=false&visual=false">
+<!-- 🎧 4개 음악 슬롯 -->
+<div class="music-grid">
+
+    <iframe class="track"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/833903848&auto_play=false&visual=false">
     </iframe>
 
-    <iframe 
-        width="100%" 
-        height="60" 
-        scrolling="no" 
-        frameborder="no" 
-        allow="autoplay; encrypted-media" 
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A826203565&color=%2300aabb&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=
-        false&show_teaser=true&visual=true">
-        </iframe>
- </div>
+    <iframe class="track"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/826203565&auto_play=false&visual=false">
+    </iframe>
 
-<!-- 🌸 꽃밭 -->
-<div class="garden-scene">
+    <iframe class="track"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&auto_play=false&visual=false">
+    </iframe>
 
-    <div class="garden-wrap">
-
-        <img src="flower1.png" alt="꽃밭" class="background">
-
-        <img src="h1.png" alt="캐릭터1" class="character c1">
-        <img src="h2.png" alt="캐릭터2" class="character c2">
-        <img src="h3.png" alt="캐릭터3" class="character c3">
-        <img src="h4.png" alt="캐릭터4" class="character c4">
-
-    </div>
+    <iframe class="track"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/987654321&auto_play=false&visual=false">
+    </iframe>
 
 </div>
-<footer>
-    <a href="index.html" class="home-btn">
-         메인 숲으로
-    </a>
-</footer>
 
-<!--  SoundCloud API -->
-<script src="https://w.soundcloud.com/player/api.js"></script>
+<!-- 🧮 점수 -->
+<div class="score-box">
+    🌸 Flowers Score: <span id="score">0</span>
+</div>
+
+<!-- 🌿 정원 -->
+<div class="garden-wrap">
+
+    <img src="flower_bg.png" class="background">
+
+    <div id="flower-layer"></div>
+
+    <!-- 🐾 캐릭터 -->
+    <img src="h1.png" class="character c1" onclick="addScore(1)">
+    <img src="h2.png" class="character c2" onclick="addScore(1)">
+    <img src="h3.png" class="character c3" onclick="addScore(1)">
+    <img src="h4.png" class="character c4" onclick="addScore(1)">
+
+</div>
+
+<!-- 🎧 하단 감상 플레이어 -->
+<div class="bottom-player">
+
+    <iframe id="mainPlayer"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/833903848&auto_play=false&visual=false">
+    </iframe>
+
+    <button onclick="playMain()">▶ 음악 감상 시작</button>
+
+</div>
 
 <script>
-const iframe = document.getElementById("sc-player");
-const widget = SC.Widget(iframe);
+let score = 0;
 
+const scoreEl = document.getElementById("score");
+const flowerLayer = document.getElementById("flower-layer");
+const mainPlayer = document.getElementById("mainPlayer");
 const characters = document.querySelectorAll(".character");
 
-/* ▶ 재생 */
-widget.bind(SC.Widget.Events.PLAY, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "running";
-    });
-});
+/* 🌸 점수 + 꽃 생성 */
+function addScore(val){
+    score += val;
+    scoreEl.innerText = score;
 
-/* ⏸ 일시정지 */
-widget.bind(SC.Widget.Events.PAUSE, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "paused";
-    });
-});
+    createFlower();
+}
 
-/* ⏹ 종료 */
-widget.bind(SC.Widget.Events.FINISH, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "paused";
+/* 🌸 꽃 생성 */
+function createFlower(){
+
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerText = "🌸";
+
+    flower.style.left = Math.random()*80 + "%";
+    flower.style.top = Math.random()*80 + "%";
+
+    flowerLayer.appendChild(flower);
+
+    setTimeout(()=>{
+        flower.remove();
+    },3000);
+}
+
+/* 🎧 하단 음악 감상 */
+function playMain(){
+
+    mainPlayer.src = mainPlayer.src; // reload
+
+    characters.forEach(c=>{
+        c.classList.add("sway");
+    });
+}
+
+/* 🎵 음악 슬롯 클릭 → 점수 */
+document.querySelectorAll(".track").forEach(track=>{
+    track.addEventListener("click", ()=>{
+        addScore(1);
     });
 });
 </script>
