@@ -114,20 +114,30 @@ body.open{
   100%{transform:translateX(-50%) rotate(-4deg);}
 }
  /* 클릭 글씨*/ 
-.f1 {
-  display: inline-block;
-  color: yellow;
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  border: 1px solid yellow;
-  border-radius: 10px;
-  text-align: center;
-  animation: blink 1s infinite alternate;
+.f1{
+  display:inline-block;
+  color:#ffd54f;
+  font-size:0.75rem;
+
+  padding:4px 8px;
+
+  border:1px solid #ffd54f;
+  border-radius:15px;
+
+  background:rgba(0,0,0,0.2);
+
+  text-shadow:1px 1px 3px black;
+
+  animation:blink 1.2s infinite alternate;
 }
 
-@keyframes blink {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
+.f1::before{
+  content:"🌸 ";
+}
+
+@keyframes blink{
+  from{opacity:0.5;}
+  to{opacity:1;}
 }
   
 /* 환영 문구 */
