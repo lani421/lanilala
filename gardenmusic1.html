@@ -6,56 +6,81 @@
 <title>유칼립투스 정원 음악</title>
 
 <style>
+
+/* ======================
+   전체 배경 (하늘 → 정원)
+====================== */
 body{
     margin:0;
     font-family:"맑은 고딕",sans-serif;
     text-align:center;
-    background:linear-gradient(to bottom, #c9f7c9, #4a9c58);
     overflow-x:hidden;
+
+    background:linear-gradient(
+        to bottom,
+        #9edcff 0%,
+        #d7f5ff 25%,
+        #d7f8d2 50%,
+        #8dd67d 75%,
+        #4a9c58 100%
+    );
+
+    min-height:100vh;
 }
 
-
-
-
-
-    
+/* ======================
+   제목
+====================== */
 h1{
+    margin-top:30px;
     color:#2d5a27;
-    margin-top:20px;
 }
 
-/* 음악 영역 */
+h2{
+    margin:0 0 25px;
+    font-weight:400;
+    color:#3d6d3d;
+}
+
+/* ======================
+   음악 플레이어 (아이폰 대응)
+====================== */
 .audio-player{
-    max-width:200px;
-    margin:5px auto;
+    width:90%;
+    max-width:420px;
+    margin:30px auto 70px;
 }
 
-/* 전체 꽃밭 영역 */
+.audio-player iframe{
+    width:100%;
+    height:140px;
+    border-radius:15px;
+}
+
+/* ======================
+   정원 영역
+====================== */
 .garden-scene{
-    width:900px;
-    max-width:95%;
-    margin:30px auto;
+    width:95%;
+    max-width:900px;
+    margin:70px auto 30px;
 }
 
-/* 배경 + 캐릭터 묶음 */
+/* 정원 내부 */
 .garden-wrap{
     position:relative;
-    width:80%;
+    width:85%;
+    min-height:320px;
     margin:0 auto;
-    color:#7fd484
+    border-radius:25px;
 }
 
-/* 꽃밭 이미지 */
-.background{
-    width:100%;
-    display:block;
-    border-radius:20px;
-}
-
-/* 캐릭터 */
+/* ======================
+   캐릭터
+====================== */
 .character{
     position:absolute;
-    width:clamp(50px, 10vw, 100px);
+    width:clamp(60px, 9vw, 95px);
     animation:dance 1s infinite ease-in-out;
     animation-play-state:paused;
     transform-origin:center bottom;
@@ -68,114 +93,92 @@ h1{
     100%{ transform:rotate(-8deg); }
 }
 
-/* 캐릭터 위치 */
-.c1{ left:10%; bottom:12%; }
-.c2{ left:30%; bottom:15%; }
-.c3{ left:55%; bottom:12%; }
-.c4{ left:75%; bottom:18%; }
+/* 위치 */
+.c1{ left:10%; bottom:20px; }
+.c2{ left:30%; bottom:40px; }
+.c3{ left:55%; bottom:20px; }
+.c4{ left:75%; bottom:50px; }
 
-footer{
-    margin-top:30px;
-}
-
-footer a{
-    color:#2d5a27;
-    text-decoration:none;
-    font-weight:bold;
-}
-.home-btn{
-    display:inline-block;
-    margin:20px 0;
-    padding:12px 28px;
-
-    background:linear-gradient(
-        135deg,
-        #6fbf73,
-        #4a9c58
-    );
-
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    font-size:1.1rem;
-
-    border-radius:30px;
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,0.15),
-        0 0 15px rgba(111,191,115,0.3);
-
-    transition:all .3s ease;
-}
-
-.home-btn:hover{
-    transform:translateY(-3px);
-    background:linear-gradient(
-        135deg,
-        #7fd484,
-        #5aae65
-    );
-
-    box-shadow:
-        0 8px 18px rgba(0,0,0,0.2),
-        0 0 20px rgba(111,191,115,0.5);
-}
-
-.home-btn:active{
-    transform:translateY(1px);
-}
-  .flower{
+/* ======================
+   꽃 (추가 2개 포함)
+====================== */
+.flower{
     position:absolute;
     width:20px;
     animation:sway 3s ease-in-out infinite;
     transform-origin:center bottom;
 }
 
-/* 위치 */
-.f1{left:8%; bottom:6%;}
-.f2{left:18%; bottom:10%;}
-.f3{left:35%; bottom:7%;}
-.f4{left:48%; bottom:11%;}
-.f5{left:63%; bottom:6%;}
-.f6{left:78%; bottom:9%;}
-.f7{left:90%; bottom:6%;}
-
 @keyframes sway{
-    0%{transform:rotate(-4deg);}
-    50%{transform:rotate(4deg);}
-    100%{transform:rotate(-4deg);}
-}  
+    0%{ transform:rotate(-4deg); }
+    50%{ transform:rotate(4deg); }
+    100%{ transform:rotate(-4deg); }
+}
+
+/* 꽃 위치 (기존 + 2개 추가) */
+.f1{left:6%; bottom:10px;}
+.f2{left:16%; bottom:22px;}
+.f3{left:28%; bottom:12px;}
+.f4{left:40%; bottom:20px;}
+.f5{left:52%; bottom:10px;}
+.f6{left:66%; bottom:18px;}
+.f7{left:78%; bottom:10px;}
+.f8{left:88%; bottom:22px;}   /* 추가 */
+.f9{left:94%; bottom:12px;}   /* 추가 */
+
+/* ======================
+   버튼
+====================== */
+footer{
+    margin-top:80px;
+}
+
+.home-btn{
+    display:inline-block;
+    padding:12px 28px;
+    margin:20px 0;
+
+    background:linear-gradient(135deg,#6fbf73,#4a9c58);
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.home-btn:hover{
+    transform:translateY(-3px);
+}
+
 </style>
 </head>
 
 <body>
 
-<h1> 유칼립투스 정원 음악 </h1>
+<h1>유칼립투스 정원 음악</h1>
 <h2>라니와 함께 듣는 힐링 뮤직</h2>
 
-<!-- 🎵 SoundCloud -->
+<!-- 🎵 플레이어 -->
 <div class="audio-player">
     <iframe
         id="sc-player"
-        width="100%"
-        height="120"
-        scrolling="no"
-        frameborder="no"
-        allow="autoplay"
         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/833903848&color=%235ca6d6&auto_play=false&visual=false">
     </iframe>
 </div>
 
-<!-- 🌸 꽃밭 -->
+<!-- 🌿 정원 -->
 <div class="garden-scene">
-
     <div class="garden-wrap">
 
-        <img src="h1.png" alt="캐릭터1" class="character c1">
-        <img src="h2.png" alt="캐릭터2" class="character c2">
-        <img src="h3.png" alt="캐릭터3" class="character c3">
-        <img src="h4.png" alt="캐릭터4" class="character c4">
-        <!-- 작은 꽃들 -->
+        <!-- 캐릭터 -->
+        <img src="h1.png" class="character c1">
+        <img src="h2.png" class="character c2">
+        <img src="h3.png" class="character c3">
+        <img src="h4.png" class="character c4">
+
+        <!-- 꽃 -->
         <img src="tinyF.png" class="flower f1">
         <img src="tinyF.png" class="flower f2">
         <img src="tinyF.png" class="flower f3">
@@ -183,16 +186,17 @@ footer a{
         <img src="tinyF.png" class="flower f5">
         <img src="tinyF.png" class="flower f6">
         <img src="tinyF.png" class="flower f7">
-    </div>
+        <img src="tinyF.png" class="flower f8">
+        <img src="tinyF.png" class="flower f9">
 
+    </div>
 </div>
+
 <footer>
-    <a href="index.html" class="home-btn">
-         메인 숲으로
-    </a>
+    <a href="index.html" class="home-btn">메인 숲으로</a>
 </footer>
 
-<!--  SoundCloud API -->
+<!-- 🎵 SoundCloud -->
 <script src="https://w.soundcloud.com/player/api.js"></script>
 
 <script>
@@ -201,25 +205,16 @@ const widget = SC.Widget(iframe);
 
 const characters = document.querySelectorAll(".character");
 
-/* ▶ 재생 */
 widget.bind(SC.Widget.Events.PLAY, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "running";
-    });
+    characters.forEach(c => c.style.animationPlayState = "running");
 });
 
-/* ⏸ 일시정지 */
 widget.bind(SC.Widget.Events.PAUSE, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "paused";
-    });
+    characters.forEach(c => c.style.animationPlayState = "paused");
 });
 
-/* ⏹ 종료 */
 widget.bind(SC.Widget.Events.FINISH, function () {
-    characters.forEach(c => {
-        c.style.animationPlayState = "paused";
-    });
+    characters.forEach(c => c.style.animationPlayState = "paused");
 });
 </script>
 
