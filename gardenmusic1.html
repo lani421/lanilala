@@ -124,6 +124,27 @@ footer a{
 .home-btn:active{
     transform:translateY(1px);
 }
+  .flower{
+    position:absolute;
+    width:20px;
+    animation:sway 3s ease-in-out infinite;
+    transform-origin:center bottom;
+}
+
+/* 위치 */
+.f1{left:8%; bottom:6%;}
+.f2{left:18%; bottom:10%;}
+.f3{left:35%; bottom:7%;}
+.f4{left:48%; bottom:11%;}
+.f5{left:63%; bottom:6%;}
+.f6{left:78%; bottom:9%;}
+.f7{left:90%; bottom:6%;}
+
+@keyframes sway{
+    0%{transform:rotate(-4deg);}
+    50%{transform:rotate(4deg);}
+    100%{transform:rotate(-4deg);}
+}  
 </style>
 </head>
 
@@ -154,7 +175,14 @@ footer a{
         <img src="h2.png" alt="캐릭터2" class="character c2">
         <img src="h3.png" alt="캐릭터3" class="character c3">
         <img src="h4.png" alt="캐릭터4" class="character c4">
-
+        <!-- 작은 꽃들 -->
+        <img src="tinyF.png" class="flower f1">
+        <img src="tinyF.png" class="flower f2">
+        <img src="tinyF.png" class="flower f3">
+        <img src="tinyF.png" class="flower f4">
+        <img src="tinyF.png" class="flower f5">
+        <img src="tinyF.png" class="flower f6">
+        <img src="tinyF.png" class="flower f7">
     </div>
 
 </div>
