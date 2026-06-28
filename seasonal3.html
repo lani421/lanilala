@@ -6,8 +6,8 @@
 
 <title>하트나무저널</title>
 
-<!-- GSAP CDN -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/MotionPathPlugin.min.js"></script>
 
 <style>
 
@@ -21,20 +21,16 @@ body{
   font-family:'NanumSquare','Arial',sans-serif;
 
   display:flex;
-
   overflow-x:auto;
   overflow-y:hidden;
 
   height:100vh;
-
   background:#faf9f6;
 
   scroll-snap-type:x mandatory;
-
   scroll-behavior:smooth;
 }
 
-/* 페이지 */
 .page{
   min-width:100vw;
   height:100vh;
@@ -47,28 +43,14 @@ body{
   align-items:center;
 
   padding:40px;
-
   position:relative;
 }
 
-/* 배경 */
-.page1{
-  background:linear-gradient(to bottom,#d8e8df,#edf4ef);
-}
+.page1{ background:linear-gradient(to bottom,#d8e8df,#edf4ef); }
+.page2{ background:#f8f2ea; }
+.page3{ background:#f5ece7; }
+.page4{ background:#eef3ef; }
 
-.page2{
-  background:#f8f2ea;
-}
-
-.page3{
-  background:#f5ece7;
-}
-
-.page4{
-  background:#eef3ef;
-}
-
-/* 제목 */
 h1{
   font-size:3rem;
   color:#27423b;
@@ -87,25 +69,18 @@ h2{
   font-size:1.1rem;
 }
 
-/* 이미지 */
 .season-gallery{
   width:320px;
   max-width:90%;
 }
 
 .season-gallery img{
-
   width:100%;
   height:230px;
-
   object-fit:cover;
-
   border-radius:18px;
-
   cursor:pointer;
-
   box-shadow:0 10px 20px rgba(0,0,0,0.12);
-
   transition:0.3s;
 }
 
@@ -113,32 +88,52 @@ h2{
   transform:scale(1.05);
 }
 
-/* 하단 힌트 */
 .hint{
   position:absolute;
   bottom:30px;
-
   font-size:14px;
   color:#777;
 }
 
-/* 스크롤바 */
 ::-webkit-scrollbar{
   height:10px;
 }
-
 ::-webkit-scrollbar-track{
   background:#eceae5;
 }
-
 ::-webkit-scrollbar-thumb{
   background:#b8c8be;
   border-radius:10px;
 }
 
+/* 🌸 꽃 */
+#flower{
+  position:fixed;
+  left:0;
+  top:0;
+  width:120px;
+  z-index:9999;
+  pointer-events:none;
+}
+.npc{
+  position:absolute;
+  width:120px;
+  z-index:10;
+  pointer-events:none;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+}
+
+/* 페이지별 위치 */
+.npc1{ left:60px; bottom:80px; }
+.npc2{ right:80px; bottom:120px; }
+.npc3{ left:120px; top:100px; }
+.npc4{ right:120px; top:140px; }
+
 </style>
 
 <script>
+
+gsap.registerPlugin(MotionPathPlugin);
 
 function openImagePopup(pageUrl){
 
@@ -151,119 +146,140 @@ function openImagePopup(pageUrl){
   window.open(
     pageUrl,
     "_blank",
-    `width=${popupWidth},
-    height=${popupHeight},
-    left=${left},
-    top=${top}`
+    `width=${popupWidth},height=${popupHeight},left=${left},top=${top}`
   );
 }
 
-/* 페이지 로딩 후 실행 */
 window.onload = function(){
 
-  /* 페이지 fade */
-  gsap.from(".page", {
-
+  gsap.from(".page",{
     opacity:0,
     duration:1.2,
-
     stagger:0.4
+  });
+
+  gsap.to(".season-gallery img",{
+    y:-15,
+    duration:2,
+    repeat:-1,
+    yoyo:true,
+    ease:"power1.inOut"
+  });
+
+  const flower = document.getElementById("flower");
+
+  // 🌿 시작 위치
+  gsap.set(flower,{ x:200, y:250 });
+
+  let currentPage = 0;
+
+  // 🌸 “길” 정의 (곡선 경로)
+  const paths = [
+
+    // PAGE1 → PAGE2
+    [
+      {x:200,y:250},
+      {x:300,y:100},
+      {x:420,y:260}
+    ],
+
+    // PAGE2 → PAGE3
+    [
+      {x:420,y:260},
+      {x:520,y:80},
+      {x:620,y:250}
+    ],
+
+    // PAGE3 → PAGE4
+    [
+      {x:620,y:250},
+      {x:720,y:100},
+      {x:820,y:250}
+    ]
+
+  ];
+
+  window.addEventListener("scroll",()=>{
+
+    const page = Math.round(window.scrollX / window.innerWidth);
+
+    if(page === currentPage) return;
+
+    const path = paths[currentPage];
+
+    currentPage = page;
+
+    if(!path) return;
+
+    gsap.to(flower,{
+      duration:1.4,
+      ease:"power2.inOut",
+      motionPath:{
+        path:path
+      }
+    });
 
   });
 
-  /* 이미지 float */
-  gsap.to(".season-gallery img", {
-
-    y:-15,
-
+  // 🌸 살랑살랑
+  gsap.to(flower,{
+    y:"+=10",
     duration:2,
-
     repeat:-1,
-
     yoyo:true,
-
-    ease:"power1.inOut"
-
+    ease:"sine.inOut"
   });
 
 };
-
-</script>
+gsap.to(".npc",{
+  y:-10,
+  duration:2,
+  repeat:-1,
+  yoyo:true,
+  ease:"sine.inOut"
+});
+</script>-
 
 </head>
 
 <body>
+<img src="flower1.png" id="flower">
 
 <!-- PAGE 1 -->
 <section class="page page1">
-
   <h1>하트나무저널</h1>
-
-  <p class="subtitle">
-    숲에서 펼쳐지는 기록
-  </p>
-
+  <p class="subtitle">숲에서 펼쳐지는 기록</p>
+  <img src="h1.png" class="npc npc1">
   <div class="season-gallery">
-
-    <img
-      src="미로와 라니.jpg"
-      alt="하트나무"
-      onclick="openImagePopup('하트1.html')"
-    >
-
+    <img src="미로와 라니.jpg" onclick="openImagePopup('하트1.html')">
   </div>
-
-  <div class="hint">
-    → 옆으로 넘겨보세요
-  </div>
-
 </section>
 
 <!-- PAGE 2 -->
 <section class="page page2">
-
-  <h2>하튼 열매 수확하기</h2>
-
+  <h2>하트 열매 수확하기</h2>
+   <img src="h2.png" class="npc npc2">
   <div class="season-gallery">
-
-    <img src="fruit.png" alt="fruit" onclick="openImagePopup('하트바구니21.html')">
-
+    <img src="fruit.png" onclick="openImagePopup('하트바구니21.html')">
   </div>
-
 </section>
 
 <!-- PAGE 3 -->
 <section class="page page3">
-
   <h2>하트잼 만들기</h2>
-
+   <img src="h3.png" class="npc npc3">
   <div class="season-gallery">
-
-    <img
-      src="jam.png"
-      alt="jam"
-      onclick="openImagePopup('하트3.html')"
-    >
-
+    <img src="jam.png" onclick="openImagePopup('하트3.html')">
   </div>
-
 </section>
 
 <!-- PAGE 4 -->
 <section class="page page4">
-
   <h2>하트플랜트 저널 쓰기</h2>
-
+  <img src="h4.png" class="npc npc4">
   <div class="season-gallery">
-
-    <img
-      src="heart4.png"
-      alt="하트숲저널"
-      onclick="openImagePopup('하트4.html')"
-    >
-
+    <img src="heart4.png" onclick="openImagePopup('하트4.html')">
   </div>
-
 </section>
 
 </body>
