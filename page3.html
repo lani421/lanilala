@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>소리의 접시</title>
+
+
+<style>
+
+body{
+
+    margin:0;
+
+    background:#e8eef1;
+
+    color:#34434b;
+
+    font-family:'NanumSquare',sans-serif;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+.page{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+
+/* 중앙 문장 */
+
+.message{
+
+    font-size:0.9rem;
+
+    letter-spacing:0.15em;
+
+    margin-bottom:120px;
+
+    color:#52636b;
+
+}
+
+
+
+/* 소리 버튼 */
+
+.soundBtn{
+
+    display:none;   /* 처음에는 숨김 */
+
+    padding:8px 18px;
+
+    margin-bottom:120px;
+
+    border:1px solid #8b9aa2;
+
+    border-radius:20px;
+
+    background:transparent;
+
+    color:#52636b;
+
+    font-size:0.75rem;
+
+    cursor:pointer;
+
+}
+
+
+.soundBtn.show{
+
+    display:inline-block;
+
+}
+
+
+
+.soundBtn:hover{
+
+    background:#52636b;
+
+    color:white;
+    .soundBtn{
+
+    display:none;   /* 처음에는 숨김 */
+
+    padding:8px 18px;
+
+    margin-bottom:120px;
+
+    border:1px solid #8b9aa2;
+
+    border-radius:20px;
+
+    background:transparent;
+
+    color:#52636b;
+
+    font-size:0.75rem;
+
+    cursor:pointer;
+
+}
+
+
+.soundBtn.show{
+
+    display:inline-block;
+
+}
+}
+
+
+
+/* 하단 버튼 */
+
+.nav a{
+
+    display:inline-block;
+
+    margin:0 15px;
+
+    padding:10px 25px;
+
+    border:1px solid #7b8b92;
+
+    color:#52636b;
+
+    text-decoration:none;
+
+    font-size:0.8rem;
+
+}
+
+
+
+.nav a:hover{
+
+    background:#52636b;
+
+    color:white;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="page">
+
+
+    <div class="message">
+
+        들어보세요.
+
+    </div>
+
+
+
+    <button class="soundBtn" id="soundBtn">
+
+        소리 듣기
+
+    </button>
+
+
+
+    <div class="nav">
+
+
+        <a href="index0.html">
+            홈으로
+        </a>
+
+
+        <a href="plate1.html">
+            다음 접시
+        </a>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<audio id="plateSound" preload="auto">
+
+    <source src="plate.mp3" type="audio/mpeg">
+
+</audio>
+
+
+
+
+<script>
+
+
+const sound = document.getElementById("plateSound");
+const btn = document.getElementById("soundBtn");
+
+
+// 페이지 진입 자동 재생 시도
+
+window.addEventListener("load",()=>{
+
+
+    sound.volume = 0.45;
+
+
+    sound.play().then(()=>{
+
+
+        console.log("자동 재생 성공");
+
+
+    }).catch(()=>{
+
+
+        console.log("자동 재생 차단");
+
+
+    });
+
+
+});
+
+
+
+
+// 수동 재생 버튼
+
+btn.addEventListener("click",()=>{
+
+
+    sound.currentTime = 0;
+
+    sound.volume = 0.45;
+
+
+    sound.play().catch(error=>{
+
+        console.log(error);
+
+    });
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
