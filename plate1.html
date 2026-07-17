@@ -103,6 +103,108 @@ a {
   color: #6b8f7b;
   text-decoration: none;
 }
+/* =====================
+   숲으로 이동 영역
+===================== */
+
+.forestLink{
+
+    margin-top:80px;
+
+    text-align:center;
+
+    opacity:0;
+
+    animation:fadeIn 2s ease forwards;
+
+    animation-delay:2s;
+
+}
+
+
+
+.line{
+
+    width:80px;
+
+    height:1px;
+
+    background:#cfd8d5;
+
+    margin:0 auto 50px;
+
+}
+
+
+
+.forestLink p{
+
+    font-size:0.95rem;
+
+    line-height:2;
+
+    color:#52635a;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.forestLink a{
+
+    display:inline-block;
+
+    padding:14px 35px;
+
+    border:1px solid #70857b;
+
+    color:#536960;
+
+    text-decoration:none;
+
+    font-size:0.85rem;
+
+    letter-spacing:0.05em;
+
+    transition:0.4s;
+
+}
+
+
+
+.forestLink a:hover{
+
+    background:#536960;
+
+    color:white;
+
+}
+
+
+
+/* 등장 효과 */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
 </style>
 </head>
 
@@ -123,20 +225,35 @@ a {
   </div>
 
   <div class="symbol">
-    씨앗 click~ <br>
+    <br>씨앗을 살며시 눌러 보세요~ <br><br.
     접시 위에 씨앗 하나가 올려져 있다.
   </div>
 
   <div class="question" id="questionText">
     내가 아직 키우지 못한 씨앗은<br>
-    무엇일까?<br>
+    무엇일까?<br><br>
     <strong>어떤 씨앗을 올릴 것인가.</strong>
   </div>
+<div class="forestLink">
 
-  <a href="index.html">← 돌아가기</a><br>
+    <div class="line"></div>
+
+    <p>
+        접시 위의 이야기는<br>
+        여기까지입니다.
+    </p>
+
+    <p>
+        이제<br>
+        숲으로 가볼까요?
+    </p>
+
+
+    <a href="seasonal3.html">
+        은하숲으로 들어가기
+    </a>
 
 </div>
-
 <!-- 봄바람 소리 -->
 <audio id="springWind" preload="auto">
   <source src="spring-wind.mp3" type="audio/mpeg">
