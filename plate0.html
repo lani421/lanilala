@@ -61,32 +61,6 @@ h1{
     transform-origin:center center;
     z-index:2;
 }
-#frost{
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-    z-index:3;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:opacity 1.5s ease;
-
-}
-
-
-#frost.show{
-
-    opacity:.75;
 
 }
 /* ---------- 텍스트 ---------- */
@@ -211,7 +185,7 @@ a{
             id="plateImg"
             alt="얼음의 접시"
         >
-        <img src="frost.png" id="frost">
+   
     </div>
     <div><div class="symbol">
      <br> 접시를 가볍게 눌러 보세요 ^ <br></div>
@@ -240,7 +214,6 @@ a{
 <script>
 
 const plate = document.getElementById("plateImg");
-const frost = document.getElementById("frost");
 const wind = document.getElementById("windSound");
 const message = document.getElementById("message");
 
@@ -269,12 +242,6 @@ plate.addEventListener("click", () => {
     plate.classList.add("glow");
 
 
-
-    // =====================
-    // 서리 등장
-    // =====================
-
-    frost.classList.add("show");
 
 
 
@@ -324,9 +291,7 @@ plate.addEventListener("click", () => {
 
     setTimeout(() => {
 
-        frost.classList.remove("show");
-
-        message.classList.remove("show");
+       message.classList.remove("show");
 
     }, 4000);
 
