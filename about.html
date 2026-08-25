@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ABOUT 인사이트 스토리텔러</title>
+    
+    <!-- FontAwesome for social media icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* 기본 스타일 */
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #00334e;
+        }
+
+        /* 애플민트 색상 */
+        :root {
+            --apple-mint: #30D5C8;
+        }
+
+        header {
+            background-color: var(--apple-mint);
+            padding: 50px 20px;
+            text-align: center;
+            color: #00334e;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        /* 프로필 섹션 */
+        .profile {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px 20px;
+            background-color: white;
+        }
+
+        .profile-content {
+            flex: 1;
+            max-width: 600px;
+            padding-left: 5cm;
+        }
+
+        .profile-content h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .profile-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #7f8c8d;
+        }
+
+        .profile-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-image img {
+            max-width: 40%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.139);
+            
+        }
+
+        /* SNS 아이콘 스타일 */
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            margin-right: 15px;
+            font-size: 24px;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--apple-mint);
+        }
+
+        /* 큐레이터 활동 섹션 */
+        .curator {
+            background-color: white;
+            text-align: center;
+            justify-content: center;
+            padding-top: 20;
+            
+        }
+
+        .curator h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            justify-content: center;
+        }
+
+        .curator p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .curator .work {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            
+           
+        }
+        .work {
+            padding-left: 3.5cm;
+
+        }
+        .curator img {
+            max-width: 30%;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            
+        }
+
+        .curator-description {
+            flex: 1;
+            margin-left: 20px;
+            font-size: 18px;
+            color: #7f8c8d;
+          
+        }
+
+        .curator-description h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        /* 박물관 에듀케이터 섹션 */
+        .educator {
+            background-color: var(--apple-mint);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .educator h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color:#00334e ;
+        }
+
+        .educator p {
+            font-size: 18px;
+            color:#00334e ;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            
+        }
+
+        .educator ul {
+            list-style-type: none;
+            padding: 0;
+            color:#00334e ;
+        }
+
+        .educator li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        footer {
+            background-color: #30D5C8;
+            color: #00334e);
+            padding: 30px;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>인사이트 스토리텔러</h1>
+        <p>책과 식물, 역사와 문화 속 조용한 사유의 결 이야기</p>
+    </header>
+
+    <!-- 프로필 섹션 -->
+    <section class="profile">
+        <div class="profile-content">
+            <h2>쉘렌 프로필</h2>
+            <p>인사이트 스토리텔러, 일러스트레이터: 
+                <br> 시간의 흐름 속 작은 지혜를 이야기, 선과 색으로 천천히 아카이빙합니다.
+            <br> 잊혀진 이야기를 다시 꺼내 현대의 시각으로 재구성합니다.</p>
+
+            <!-- SNS Links -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/yourprofile" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.티스토리" target="_blank" title="티스토리">
+                    <i class="fab fa-tistory"></i>
+                </a>
+            </div>
+        </div>
+        <div class="profile-image">
+            <img src="작은피크닉.jpeg" alt="작가 이미지">
+        </div>
+    </section>
+<hr style="
+  border: none;
+  height: 3px;
+  background: linear-gradient(to right, #00ced1, #222222);
+">
+
+ 
+</body>
+</html>
+            
