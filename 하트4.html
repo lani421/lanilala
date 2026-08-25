@@ -2,63 +2,428 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>하트플랜트 저널 </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>하트플랜트 저널</title>
+
   <style>
+    :root {
+      --paper: #F7F5EA;
+      --paper-deep: #EFEBDD;
+
+      --green-dark: #33483A;
+      --green: #5F7D52;
+      --green-soft: #DDEBCB;
+      --apple: #8CC63F;
+
+      --soil: #9A8065;
+      --heart: #C98276;
+      --butter: #F1D98A;
+
+      --white: #FFFDF7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      padding: 20px;
-      font-family: 'Arial', sans-serif;
-      background-color: #f5fff2;
+      padding: 0;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      background: var(--paper);
+      color: var(--green-dark);
+
       text-align: center;
-      color: #2f5233;
+      line-height: 1.8;
+
+      -webkit-font-smoothing: antialiased;
     }
 
-    img {
-      max-width: 50%;
-      border-radius: 8px;
-      margin-top: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+    /* -------------------------
+       전체 영역
+    ------------------------- */
+
+    .journal {
+      width: min(680px, 90vw);
+      margin: 0 auto;
+      padding: 90px 0 110px;
     }
 
-    p {
-      margin-top: 20px;
-      font-size: 1.1rem;
+
+    /* -------------------------
+       작은 제목
+    ------------------------- */
+
+    .eyebrow {
+      margin: 0 0 18px;
+
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 600;
+
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
     }
 
-    a.button {
+
+    /* -------------------------
+       제목
+    ------------------------- */
+
+    h1 {
+      margin: 0;
+
+      color: var(--green-dark);
+
+      font-family:
+        "Times New Roman",
+        "Noto Serif KR",
+        serif;
+
+      font-size: clamp(2.3rem, 7vw, 4rem);
+      font-weight: 400;
+
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+
+
+    /* -------------------------
+       저널 이미지
+    ------------------------- */
+
+    .journal-image-wrap {
+      margin: 48px auto 55px;
+
+      width: min(520px, 82vw);
+
+      position: relative;
+    }
+
+    .journal-image-wrap::before {
+      content: "";
+
+      position: absolute;
+      width: 110px;
+      height: 110px;
+
+      top: -25px;
+      right: -28px;
+
+      background: var(--green-soft);
+
+      border-radius: 50%;
+
+      z-index: 0;
+    }
+
+    .journal-image-wrap img {
+      display: block;
+
+      position: relative;
+      z-index: 1;
+
+      width: 100%;
+      height: auto;
+
+      border-radius: 4px;
+
+      box-shadow:
+        0 18px 45px rgba(51, 72, 58, 0.13);
+    }
+
+
+    /* -------------------------
+       소개 문장
+    ------------------------- */
+
+    .intro {
+      margin: 0 auto;
+
+      max-width: 500px;
+
+      color: #4A5C4C;
+
+      font-family:
+        "Noto Serif KR",
+        "Apple SD Gothic Neo",
+        serif;
+
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+
+      line-height: 2.15;
+    }
+
+    .intro p {
+      margin: 0 0 24px;
+    }
+
+
+    /* -------------------------
+       63 DAYS
+    ------------------------- */
+
+    .days {
       display: inline-block;
-      margin-top: 20px;
-      background-color: #cfe9c9;
-      color: #2f5233;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
+
+      margin: 18px 0 28px;
+
+      color: var(--green-dark);
+
+      font-family:
+        "Times New Roman",
+        serif;
+
+      font-size: 0.85rem;
+      font-weight: 600;
+
+      letter-spacing: 0.25em;
+
+      border-top: 1px solid rgba(95, 125, 82, 0.45);
+      border-bottom: 1px solid rgba(95, 125, 82, 0.45);
+
+      padding: 10px 18px 9px;
     }
 
-    a.button:hover {
-      background-color: #b6ddaf;
+
+    /* -------------------------
+       설명
+    ------------------------- */
+
+    .description {
+      margin: 0 auto 36px;
+
+      color: #697467;
+
+      font-size: 0.92rem;
+      line-height: 1.9;
     }
+
+
+    /* -------------------------
+       메인 버튼
+    ------------------------- */
+
+    a {
+      text-decoration: none;
+    }
+
+    .primary {
+      display: inline-block;
+
+      min-width: 220px;
+
+      padding: 14px 28px;
+
+      background: var(--green-dark);
+      color: var(--white);
+
+      border: 1px solid var(--green-dark);
+      border-radius: 3px;
+
+      font-size: 0.82rem;
+      font-weight: 600;
+
+      letter-spacing: 0.12em;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .primary:hover {
+      background: var(--apple);
+      border-color: var(--apple);
+      color: #26351F;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* -------------------------
+       작은 보너스 영역
+    ------------------------- */
+
+    .bonus {
+      margin: 100px auto 0;
+
+      padding-top: 42px;
+
+      border-top: 1px solid rgba(95, 125, 82, 0.22);
+
+      max-width: 500px;
+    }
+
+    .bonus-title {
+      margin: 0 0 24px;
+
+      color: var(--soil);
+
+      font-size: 0.7rem;
+      font-weight: 600;
+
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .bonus a {
+      display: block;
+
+      padding: 13px 0;
+
+      color: var(--green);
+
+      border-bottom: 1px solid rgba(95, 125, 82, 0.16);
+
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+    }
+
+    .bonus a:first-of-type {
+      border-top: 1px solid rgba(95, 125, 82, 0.16);
+    }
+
+    .bonus a:hover {
+      color: var(--apple);
+      padding-left: 8px;
+    }
+
+
+    /* -------------------------
+       모바일
+    ------------------------- */
+
+    @media (max-width: 600px) {
+
+      .journal {
+        width: 86vw;
+        padding: 65px 0 85px;
+      }
+
+      .journal-image-wrap {
+        margin-top: 38px;
+        margin-bottom: 42px;
+      }
+
+      .journal-image-wrap::before {
+        width: 75px;
+        height: 75px;
+
+        top: -18px;
+        right: -18px;
+      }
+
+      .intro {
+        font-size: 0.98rem;
+        line-height: 2;
+      }
+
+      .primary {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .bonus {
+        margin-top: 75px;
+      }
+    }
+
   </style>
 </head>
-<body>
-  <h2>하트플랜트 저널  </h2>
-  <img src="heartfruit.png" alt="하트저널 이미지">
-  <p>내 마음의 토양에 <br>
-       작은 하트씨앗을 심습니다<br>
-       조용히, 다정하게 <br>
-       마음 깊은 곳에 작은 나무가 자라날 거예요.<br>
-       63일 후, 그 나무는<br>
-       어쩌면 오래전부터 기다려온 <br>
-       성장한 나일거에요.</p>
-  <p>
-    마음과 루틴을 기록할 수 있는<br>
-    하트플랜트 저널을 써보세요!
-  </p>
 
-  
-   <a href="하트바구니.html" class="button">미니 하트열매 바구니 게임 </a>
-   <a href="하트잼레시피.html" class="button">나의 하트잼 레시피 알아보기 </a>
-   <a href="https://naver.me/" target="_blank" class="button">나만의 종이 저널 쓰기 </a>
+
+<body>
+
+  <main class="journal">
+
+    <p class="eyebrow">PAPER JOURNAL</p>
+
+    <h1>하트플랜트</h1>
+
+
+    <div class="journal-image-wrap">
+      <img
+        src="heartfruit.png"
+        alt="애플그린 표지의 하트플랜트 저널"
+      >
+    </div>
+
+
+    <div class="intro">
+
+      <p>
+        내 마음의 토양에<br>
+        작은 하트씨앗을 심습니다.
+      </p>
+
+      <p>
+        조용히, 다정하게.<br>
+        마음 깊은 곳에 작은 나무가 자라날 거예요.
+      </p>
+
+    </div>
+
+
+    <div class="days">
+      63 DAYS
+    </div>
+
+
+    <p class="description">
+      마음과 작은 루틴을 기록하며<br>
+      나만의 성장의 시간을 만들어보세요.
+    </p>
+
+
+    <!-- 메인 CTA -->
+    <a
+      href="https://naver.me/"
+      target="_blank"
+      rel="noopener"
+      class="primary"
+    >
+      PAPER JOURNAL →
+    </a>
+
+
+    <!-- 보너스 경험 -->
+    <section class="bonus">
+
+      <p class="bonus-title">
+        A LITTLE GARDEN TO EXPLORE
+      </p>
+
+      <a href="하트바구니.html">
+        HEART BASKET →
+      </a>
+
+      <a href="하트잼레시피.html">
+        HEART JAM →
+      </a>
+
+    </section>
+
+  </main>
+
 </body>
 </html>
