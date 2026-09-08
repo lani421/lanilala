@@ -1,625 +1,351 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>숲의 입구</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+KR:wght@300;400&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      font-family: sans-serif;
-
-      background:
-        radial-gradient(
-          circle at top,
-          rgba(180, 140, 255, 0.25),
-          transparent 45%
-        ),
-        linear-gradient(
-          135deg,
-          #241339,
-          #1b3e5d,
-          #18432b
-        );
-
-      transition: background 2s ease;
-    }
-
-    /* 어두운 오버레이 */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-
-      background: rgba(20, 30, 20, 0.35);
-
-      transition: background 2s ease;
-
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* 꽃 클릭 후 배경 */
-    body.open {
-      background:
-        radial-gradient(
-          circle at top,
-          rgba(240, 200, 255, 0.03),
-          transparent 55%
-        ),
-        linear-gradient(
-          135deg,
-          #6d4acb,
-          #5b8fd4,
-          #6ccf86
-        );
-    }
-
-    /* 전체 컨테이너 */
-    .container {
-      position: relative;
-      z-index: 10;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      gap: 30px;
-    }
-
-    /* 캐릭터 영역 */
-    .item {
-      position: relative;
-    }
-
-    /* 코알라 */
-    #koala {
-      display: block;
-      width: 260px;
-
-      position: relative;
-      z-index: 10;
-    }
-
-    /* 윙크할 때 살짝 점프 */
-    .koala-wink {
-      animation: winkJump 1.2s ease;
-    }
-
-    @keyframes winkJump {
-      0% {
-        transform: translateY(0);
-      }
-
-      30% {
-        transform: translateY(-15px);
-      }
-
-      60% {
-        transform: translateY(-5px);
-      }
-
-      100% {
-        transform: translateY(0);
-      }
-    }
-
-    /* 꽃 */
-    .flower {
-      position: absolute;
-
-      top: -10px;
-      left: 45%;
-
-      transform: translateX(-50%);
-
-      cursor: pointer;
-
-      animation: sway 3s ease-in-out infinite;
-
-      z-index: 20;
-
-      transition:
-        opacity 0.6s ease,
-        transform 0.6s ease;
-    }
-
-    .flower img {
-      display: block;
-      width: 120px;
-    }
-
-    @keyframes sway {
-      0% {
-        transform: translateX(-50%) rotate(-4deg);
-      }
-
-      50% {
-        transform: translateX(-50%) rotate(4deg);
-      }
-
-      100% {
-        transform: translateX(-50%) rotate(-4deg);
-      }
-    }
-
-    /* 클릭 글씨 */
-    .f1 {
-      display: inline-block;
-
-      color: #ffd54f;
-      font-size: 0.75rem;
-
-      padding: 4px 8px;
-
-      border: 1px solid #ffd54f;
-      border-radius: 15px;
-
-      background: rgba(0, 0, 0, 0.2);
-
-      text-shadow: 1px 1px 3px black;
-
-      animation: blink 1.2s infinite alternate;
-    }
-
-    .f1::before {
-      content: "🌸 ";
-    }
-
-    @keyframes blink {
-      from {
-        opacity: 0.5;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* 환영 문구 */
-    .welcome {
-      position: fixed;
-
-      top: 17%;
-      left: 50%;
-
-      transform: translate(-50%, 18px);
-
-      z-index: 50;
-
-      text-align: center;
-
-      opacity: 0;
-      filter: blur(3px);
-
-      pointer-events: none;
-
-      transition:
-        opacity 2.8s ease,
-        transform 3s cubic-bezier(.16, 1, .3, 1),
-        filter 3s ease;
-    }
-
-    .welcome.show {
-      opacity: 1;
-
-      transform: translate(-50%, 0);
-
-      filter: blur(0);
-    }
-
-    /* 영문 브랜드명 */
-    .welcome-title {
-      font-family: "Cormorant Garamond", serif;
-
-      font-size: clamp(1.45rem, 2.4vw, 2.1rem);
-      font-weight: 400;
-
-      letter-spacing: 0.28em;
-      line-height: 1;
-
-      color: rgba(244, 241, 231, 0.94);
-
-      margin-left: 0.28em;
-    }
-
-    /* 한국어 문장 */
-    .welcome-subtitle {
-      margin-top: 15px;
-
-      font-family: "Noto Serif KR", serif;
-
-      font-size: 0.72rem;
-      font-weight: 300;
-
-      letter-spacing: 0.24em;
-      line-height: 1.8;
-
-      color: rgba(235, 231, 216, 0.58);
-
-      margin-left: 0.24em;
-    }
-
-    .welcome-subtitle::before {
-      content: "·";
-
-      display: block;
-
-      margin-bottom: 8px;
-
-      font-family: serif;
-      font-size: 0.7rem;
-
-      color: rgba(235, 231, 216, 0.38);
-    }
-
-    /* 메뉴 */
-    .wrap {
-      text-align: center;
-
-      max-width: 400px;
-
-      z-index: 10;
-    }
-
-    .wrap a {
-      display: block;
-
-      padding: 12px;
-
-      margin: 10px 0;
-
-      border-radius: 16px;
-
-      background: #e6efe9;
-
-      text-decoration: none;
-
-      color: #27423b;
-
-      transform: scale(0);
-
-      opacity: 0;
-
-      transition:
-        transform 0.6s ease,
-        opacity 0.6s ease;
-    }
-
-    .wrap a.show {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    /* 꽃잎 */
-    .petal {
-      position: fixed;
-
-      width: 30px;
-
-      pointer-events: none;
-
-      z-index: 999;
-    }
-
-    /* 반딧불 */
-    .firefly {
-      position: fixed;
-
-      width: 10px;
-
-      pointer-events: none;
-
-      opacity: 0.8;
-
-      z-index: 999;
-
-      animation: float 6s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translate(0, 0);
-      }
-
-      50% {
-        transform: translate(30px, -40px);
-      }
-
-      100% {
-        transform: translate(0, 0);
-      }
-    }
-
-    /* 모바일 */
-    @media (max-width: 600px) {
-      .welcome {
-        top: 15%;
-      }
-
-      .welcome-title {
-        font-size: 1.35rem;
-        letter-spacing: 0.22em;
-        margin-left: 0.22em;
-      }
-
-      .welcome-subtitle {
-        margin-top: 13px;
-
-        font-size: 0.68rem;
-
-        letter-spacing: 0.18em;
-
-        margin-left: 0.18em;
-      }
-
-      #koala {
-        width: 220px;
-      }
-
-      .flower img {
-        width: 100px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>숲 포털</title>
+
+<style>
+
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:sans-serif;
+  transition:all 2s ease;
+
+   background:
+  radial-gradient(
+    circle at top,
+    rgba(180,140,255,0.25),
+    transparent 45%
+  ),
+  linear-gradient(
+    135deg,
+    #241339,
+    #1b3e5d,
+    #18432b
+  );
+
+  transition:all 2s ease;
+}
+
+/* 어두운 오버레이 */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:rgba(20,30,20,0.35);
+  transition:2s;
+  z-index:0;
+}
+
+body.open{
+  background:
+  radial-gradient(
+    circle at top,
+    rgba(240,200,255,0.03),
+    transparent 55%
+  ),
+  linear-gradient(
+    135deg,
+    #6d4acb,
+    #5b8fd4,
+    #6ccf86
+  );
+}
+/* 전체 컨테이너 */
+.container{
+  position:relative;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+}
+
+/* 캐릭터 영역 */
+.item{
+  position:relative;
+  }
+
+/* 코알라 뒤 배경 */
+
+/* 코알라 */
+#koala{
+  width:260px;
+  position:relative;
+  z-index:10;
+}
+
+/* 윙크할 때 살짝 점프 */
+.koala-wink{
+  animation:winkJump 1.2s ease;
+}
+
+@keyframes winkJump{
+  0%{transform:translateY(0);}
+  30%{transform:translateY(-15px);}
+  60%{transform:translateY(-5px);}
+  100%{transform:translateY(0);}
+}
+
+/* 꽃 */
+.flower{
+  position:absolute;
+  top:-10px;
+  left:45%;
+  transform:translateX(-50%);
+  cursor:pointer;
+  animation:sway 3s ease-in-out infinite;
+  z-index:20;
+}
+
+.flower img{
+  width:120px;
+}
+
+@keyframes sway{
+  0%{transform:translateX(-50%) rotate(-4deg);}
+  50%{transform:translateX(-50%) rotate(4deg);}
+  100%{transform:translateX(-50%) rotate(-4deg);}
+}
+ /* 클릭 글씨*/ 
+.f1{
+  display:inline-block;
+  color:#ffd54f;
+  font-size:0.75rem;
+
+  padding:4px 8px;
+
+  border:1px solid #ffd54f;
+  border-radius:15px;
+
+  background:rgba(0,0,0,0.2);
+
+  text-shadow:1px 1px 3px black;
+
+  animation:blink 1.2s infinite alternate;
+}
+
+.f1::before{
+  content:"🌸 ";
+}
+
+@keyframes blink{
+  from{opacity:0.5;}
+  to{opacity:1;}
+}
+  
+/* 환영 문구 */
+.welcome{
+  position:fixed;
+  top: 15%;
+  left:51%;
+  transform:translateX(-50%);
+  font-size:1.3rem;
+  color:#eaffea;
+  opacity:0;
+  transition:2s;
+  z-index:50;
+  text-shadow:0 0 10px rgba(0,0,0,0.5);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  color: rgba(244, 241, 231, 0.94);
+  margin-left: 0.28em;
+}
+
+.welcome.show{
+  opacity:1;
+}
+
+/* 메뉴 */
+.wrap{
+  text-align:center;
+  max-width:400px;
+  z-index:10;
+  }
+
+.wrap a{
+  display:block;
+  padding:12px;
+  margin:10px 0;
+  border-radius:16px;
+  background:#e6efe9;
+  text-decoration:none;
+  color:#27423b;
+  transform:scale(0);
+  opacity:0;
+  transition:all .6s ease;
+  }
+
+.wrap a.show{
+  transform:scale(1);
+  opacity:1;
+}
+
+/* 꽃잎 */
+.petal{
+  position:fixed;
+  width:30px;
+  pointer-events:none;
+  z-index:999;
+}
+
+/* 반딧불 */
+.firefly{
+  position:fixed;
+  width:10px;
+  pointer-events:none;
+  opacity:0.8;
+  z-index:999;
+  animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(30px,-40px);}
+  100%{transform:translate(0,0);}
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- 환영 문구 -->
-  <div class="welcome" id="welcome">
-    <div class="welcome-title">
-      FOREST WITHIN
+<div class="welcome" id="welcome">
+  GREEN MIND WITHIN <br>
+         
+</div>
+
+<div class="container">
+
+  <div class="item">
+
+    <!-- 꽃 -->
+    <div class="flower" id="flower">
+      <img src="flower.png" alt="">
     </div>
 
-    <div class="welcome-subtitle">
-      숲에 깃든 이야기
-    </div>
+    <!-- 코알라 -->
+    <img src="koala1.png" id="koala" alt="코알라">
+  <div class=f1> click~</div>
   </div>
 
-
-  <div class="container">
-
-    <div class="item">
-
-      <!-- 꽃 -->
-      <div class="flower" id="flower">
-        <img src="flower.png" alt="꽃">
-      </div>
-
-      <!-- 코알라 -->
-      <img
-        src="koala1.png"
-        id="koala"
-        alt="코알라"
-      >
-
-      <div class="f1">
-        click~
-      </div>
-
-    </div>
-
-
-    <!-- 메뉴 -->
-    <div class="wrap">
-
-      <a href="plate0.html">
-        EXHIBITION SEED
-      </a>
-
-      <a href="seasonal3.html">
-        HEART GARDEN
-      </a>
-
-      <a href="about.html">
-        ABOUT
-      </a>
-
-      <!-- 필요할 때 display:none 제거 -->
-      <a href="sns비스킷.html" class="hidden-menu">
-        BUTTER RABBIT BISCUIT ROUTINE
-      </a>
-
-    </div>
-
+  <div class="wrap">
+    <a href="plate0.html"> EXHIBITION SEED</a>
+    <a href="seasonal3.html" style="display:none;" > HEART GARDEN</a>
+    <a href="sns비스킷.html" style="display:none;"> BUTTER RABBIT BISCUIT ROUTINE</a>
+    <a href="about.html" style="display:none;">ABOUT</a>
   </div>
 
+</div>
 
-  <script>
-    const flower = document.getElementById("flower");
-    const welcome = document.getElementById("welcome");
-    const links = document.querySelectorAll(".wrap a");
-    const koala = document.getElementById("koala");
+<script>
 
-    let opened = false;
+const flower = document.getElementById('flower');
+const welcome = document.getElementById('welcome');
+const links = document.querySelectorAll('.wrap a');
+const koala = document.getElementById('koala');
 
+flower.addEventListener('click',()=>{
 
-    /* 페이지가 열리면 환영 문구 표시 */
-    window.addEventListener("load", () => {
+  /* 코알라 윙크 */
+  koala.src='koala2.png';
+  koala.classList.add('koala-wink');
 
-      setTimeout(() => {
-        welcome.classList.add("show");
-      }, 1400);
+  setTimeout(()=>{
+    koala.src='koala1.png';
+    koala.classList.remove('koala-wink');
+  },1200);
 
-      setTimeout(() => {
-        welcome.classList.remove("show");
-      }, 6000);
+  document.body.classList.add('open');
 
+  const rect = flower.getBoundingClientRect();
+
+  /* 꽃 사라짐 */
+  flower.style.animation='none';
+  flower.style.transform='translateX(-50%) scale(0)';
+  flower.style.opacity='0';
+  
+    /* 꽃잎 생성 */
+  for(let i=0;i<70;i++){
+
+    const petal=document.createElement('img');
+
+    petal.src='petal.png';
+    petal.className='petal';
+
+    petal.style.left=(rect.left + rect.width/2)+'px';
+    petal.style.top=(rect.top + rect.height/2)+'px';
+
+    document.body.appendChild(petal);
+
+    const x=(Math.random()-0.5)*window.innerWidth;
+    const up=-200-Math.random()*200;
+    const down=500+Math.random()*300;
+
+    petal.animate([
+      {transform:'translate(0,0)',opacity:1},
+      {
+        offset:0.3,
+        transform:`translate(${x}px,${up}px)`,
+        opacity:1
+      },
+      {
+        transform:`translate(${x*1.2}px,${down}px)`,
+        opacity:0
+      }
+    ],{
+      duration:5000,
+      easing:'ease-in-out',
+      fill:'forwards'
     });
 
+    setTimeout(()=>{
+      petal.remove();
+    },5000);
+  }
 
-    /* 꽃 클릭 */
-    flower.addEventListener("click", () => {
+  /* 반딧불 생성 */
+  for(let i=0;i<12;i++){
 
-      /* 이미 열렸다면 다시 실행하지 않음 */
-      if (opened) return;
+    const f=document.createElement('img');
 
-      opened = true;
+    f.src='firefly.png';
+    f.className='firefly';
 
+    f.style.left=Math.random()*window.innerWidth+'px';
+    f.style.top=Math.random()*window.innerHeight+'px';
 
-      /* 코알라 윙크 */
-      koala.src = "koala2.png";
-      koala.classList.add("koala-wink");
+    document.body.appendChild(f);
+    flower.style.pointerEvents='none';
+  }
+  
+  /* 환영 문구 */
+  setTimeout(()=>{
+    welcome.classList.add('show');
+  },800);
 
+  /* 메뉴 등장 */
+  links.forEach((link,i)=>{
 
-      setTimeout(() => {
-        koala.src = "koala1.png";
-        koala.classList.remove("koala-wink");
-      }, 1200);
+    setTimeout(()=>{
+      link.classList.add('show');
+    },1200+i*500);
 
+  });
 
-      /* 배경 변경 */
-      document.body.classList.add("open");
+});
 
-
-      /* 꽃 위치 기억 */
-      const rect = flower.getBoundingClientRect();
-
-      const startX = rect.left + rect.width / 2;
-      const startY = rect.top + rect.height / 2;
-
-
-      /* 꽃 사라짐 */
-      flower.style.animation = "none";
-      flower.style.transform =
-        "translateX(-50%) scale(0)";
-      flower.style.opacity = "0";
-      flower.style.pointerEvents = "none";
-
-
-      /* 꽃잎 생성 */
-      for (let i = 0; i < 70; i++) {
-
-        const petal = document.createElement("img");
-
-        petal.src = "petal.png";
-        petal.className = "petal";
-
-        petal.style.left = startX + "px";
-        petal.style.top = startY + "px";
-
-        document.body.appendChild(petal);
-
-
-        const x =
-          (Math.random() - 0.5) *
-          window.innerWidth;
-
-        const up =
-          -200 -
-          Math.random() * 200;
-
-        const down =
-          500 +
-          Math.random() * 300;
-
-
-        petal.animate(
-          [
-            {
-              transform: "translate(0, 0) rotate(0deg)",
-              opacity: 1
-            },
-
-            {
-              offset: 0.3,
-
-              transform:
-                `translate(${x}px, ${up}px)
-                 rotate(${Math.random() * 360}deg)`,
-
-              opacity: 1
-            },
-
-            {
-              transform:
-                `translate(${x * 1.2}px, ${down}px)
-                 rotate(${Math.random() * 720}deg)`,
-
-              opacity: 0
-            }
-          ],
-          {
-            duration: 5000,
-
-            easing: "ease-in-out",
-
-            fill: "forwards"
-          }
-        );
-
-
-        setTimeout(() => {
-          petal.remove();
-        }, 5000);
-
-      }
-
-
-      /* 반딧불 생성 */
-      for (let i = 0; i < 12; i++) {
-
-        const firefly =
-          document.createElement("img");
-
-        firefly.src = "firefly.png";
-
-        firefly.className = "firefly";
-
-        firefly.style.left =
-          Math.random() *
-          window.innerWidth +
-          "px";
-
-        firefly.style.top =
-          Math.random() *
-          window.innerHeight +
-          "px";
-
-
-        /* 각각 다른 애니메이션 속도 */
-        firefly.style.animationDuration =
-          4 + Math.random() * 5 + "s";
-
-        firefly.style.animationDelay =
-          Math.random() * 3 + "s";
-
-
-        document.body.appendChild(firefly);
-
-      }
-
-
-      /* 메뉴 등장 */
-      links.forEach((link, i) => {
-
-        setTimeout(() => {
-
-          link.classList.add("show");
-
-        }, 1200 + i * 500);
-
-      });
-
-    });
-  </script>
+</script>
 
 </body>
 </html>
+
