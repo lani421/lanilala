@@ -1,0 +1,119 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Dandelion Sky</title> 
+         <style> 
+         * 
+         { margin: 0; padding: 0; box-sizing: border-box; } html, 
+         body { width: 100%; height: 100%; overflow: hidden; } 
+         body { background: linear-gradient( to bottom, #7abee2 0%, #93cae2 55%,
+             #b1d7e4 100% ); font-family: "Helvetica Neue", Arial, sans-serif; }
+
+         /* 하늘 전체 */ 
+         .sky { position: relative; width: 100vw; height: 100vh; overflow: hidden; } 
+         
+         /* 은은한 구름 */ 
+         .cloud { position: absolute; background: rgba(255, 255, 255, 0.28); border-radius: 50%; filter: blur(20px); pointer-events: none; } .cloud1 { width: 260px; height: 80px; top: 13%; left: 8%; } 
+         .cloud2 { width: 320px; height: 90px; top: 30%; right: 5%; } 
+         .cloud3 { width: 200px; height: 60px; bottom: 15%; left: 25%; } 
+         
+         /* 민들레 하나의 영역 */ 
+         .dandelion { position: absolute; width: 180px; height: 220px; display: flex;
+          justify-content: center; align-items: flex-end; cursor: pointer; 
+          
+          /* 기본 흔들림 */ animation: floatingSway 5s ease-in-out infinite; transform-origin: 50% 90%; } 
+          
+          /* 이미지 */ .dandelion img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; transition: transform 0.8s ease, 
+          filter 0.8s ease; } 
+          
+          /* 마우스를 올렸을 때 더 크게 흔들림 */ 
+          .dandelion:hover { animation: hoverSway 1.7s ease-in-out infinite; z-index: 10; } 
+          .dandelion:hover img { transform: scale(1.04); filter: brightness(1.04); } 
+          
+          /* 글씨 */ 
+          .word { position: absolute; left: 50%; top: -18px; 
+            transform:translateX(-50%) translateY(8px); 
+            color: rgba(4, 24, 51, 0.95); 
+            font-size: 13px;
+            font-weight: 300; 
+            letter-spacing: 3px; white-space: nowrap; opacity: 0; transition:
+               opacity 0.5s ease, transform 0.5s ease; pointer-events: none; text-shadow:
+                0 1px 8px rgba(50, 80, 90, 0.25); } 
+
+          .dandelion:hover .word { opacity: 1; transform:
+                 translateX(-50%) 
+                 translateY(0); } 
+
+         /* 기본 바람에 흔들리는 느낌 */
+          @keyframes floatingSway { 0% { transform: rotate(-2deg) 
+                    translateY(0); } 25% { transform: rotate(2deg) translateY(-5px); } 50% { transform: 
+                        rotate(-1deg) translateY(2px); } 75% { transform: rotate(3deg) translateY(-4px); }
+                         100% { transform: rotate(-2deg) translateY(0); } } 
+                         
+                         /* hover 시 바람을 더 많이 받는 느낌 */ @keyframes 
+            hoverSway { 0% { transform: rotate(-5deg) translateX(-2px); } 20% { transform: rotate(5deg) translateX(4px); } 40% { transform: rotate(-7deg) translateX(-4px); } 60% { transform: rotate(6deg) translateX(4px); } 80% { transform: rotate(-4deg) translateX(-2px); } 100% { transform: rotate(-5deg) translateX(-2px); } }
+                          /* ------------------------- 각각의 민들레 위치 ------------------------- */ /* 중앙 */
+            
+            .d0 { width: 250px; height: 150px; left: 50%; top: 50%; transform: translate(-50%, -50%); animation-delay: -1s; }
+                            /* 왼쪽 위 */ 
+            .d1 { width: 170px; height: 210px; left: 17%; top: 17%; animation-delay: -2s; } 
+                           /* 오른쪽 위 */ 
+            .d2 { width: 150px; height: 190px; right: 17%; top: 13%; animation-delay: -4s; }
+                            /* 왼쪽 아래 */ 
+             .d3 { width: 160px; height: 200px; left: 10%; bottom: 13%; animation-delay: -1.5s; } 
+                            /* 오른쪽 아래 */ 
+             .d4 { width: 180px; height: 220px; right: 9%; bottom: 12%; animation-delay: -3s; } 
+                           
+            /* 모바일 */ @media (max-width: 700px) 
+            { .d0 { width: 200px; height: 250px; } 
+            .d1 { width: 120px; height: 160px; left: 3%; top: 15%; } 
+            .d2 { width: 110px; height: 150px; right: 3%; top: 12%; } 
+            .d3 { width: 120px; height: 160px; left: 2%; bottom: 10%; } 
+            .d4 { width: 130px; height: 170px; right: 2%; bottom: 9%; } 
+            .word { font-size: 11px; letter-spacing: 2px; } }
+</style>
+</head>
+<body> 
+                                <div class="sky">
+<!-- 구름 -->
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
+<div class="cloud cloud3"></div>
+
+
+<!-- Dandelion 1 -->
+<div class="dandelion d1">
+    <div class="word">peace</div>
+    <img src="민들레1.png" alt="Dandelion">
+</div>
+
+
+<!-- Dandelion 2 -->
+<div class="dandelion d2">
+    <div class="word">mind</div>
+    <img src="민들레2.png" alt="Dandelion">
+</div>
+
+
+<!-- 중앙 Dandelion -->
+<div class="dandelion d0">
+    <img src="민들레0.png" alt="Dandelion">
+</div>
+
+
+<!-- Dandelion 3 -->
+<div class="dandelion d3">
+    <div class="word">routine</div>
+    <img src="민들레3.png" alt="Dandelion">
+</div>
+
+
+<!-- Dandelion 4 -->
+<div class="dandelion d4">
+    <div class="word">story</div>
+    <img src="민들레4.png" alt="Dandelion">
+</div>
+
+</div> </body> </html>
