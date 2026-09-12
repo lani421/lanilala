@@ -1,300 +1,131 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>얼음의 접시</title>
+<!DOCTYPE html> 
+<html lang="ko"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>얼음의 접시</title> <style> *{ box-sizing:border-box; } 
+        body{ font-family:'NanumSquare', sans-serif; margin:0; background:#3d4042; color:#eff2f3e5;
+         display:flex; justify-content:center; align-items:center; min-height:100vh; }
+          .plate{ width:100%; max-width:700px; padding:40px 25px; text-align:center; } 
+          h1{ font-size:1.6rem; margin:0 0 10px; } 
+          .keywords{ font-size:.85rem; color:#d7dad8; margin-bottom:30px; }
+           /* ---------- 이미지 레이어 ---------- */ 
+           .plateWrap{ position:relative; /* PC에서는 최대 420px, 아이폰에서는 화면 너비의 85% */
+            width:min(250px, 85vw); margin:0 auto 18px; } .bg{ display:block; width:100%; height:auto; } 
+            #plateImg
+            { position:absolute; inset:0; width:100%; height:100%; 
+                object-fit:contain; cursor:pointer; 
+                transform-origin:center center; z-index:2; } 
+            /* ---------- 안내 텍스트 ---------- */ 
+            .symbol{ font-size:.95rem; line-height:1.6; margin-bottom:40px; } 
+            .question{ font-size:.95rem; color:#eceeee; padding-top:25px; border-top:1px solid white; }
+             /* ---------- 링크 ---------- */ 
+             a{ display:inline-block; margin-top:20px; font-size:.85rem; color:#d4d6d6f1; text-decoration:none; } a:hover{ color:white; } 
+             /* ---------- 흔들림 ---------- */
+              .shake{ animation:windMove 1.4s ease; } @keyframes windMove{ 0%{ transform:scale(1) rotate(0deg); } 15%{ transform:scale(1.02) rotate(-3deg); } 30%{ transform:scale(1.04) rotate(3deg); } 45%{ transform:scale(1.03) rotate(-2deg); } 60%{ transform:scale(1.05) rotate(2deg); } 80%{ transform:scale(1.02) rotate(-1deg); } 100%{ transform:scale(1) rotate(0deg); } }
+               /* ---------- 빛 효과 ---------- */ 
+               .glow{ filter:drop-shadow( 0 0 18px rgba(223, 252, 249, 0.5) ); } 
+               /* ---------- 메시지 ---------- */ 
+               .message{ height:50px; margin:25px 0 25px; font-size:1rem; line-height:1.6;
+                color:#ffffff; opacity:0; transition:opacity 2s ease; } 
+                .message.show{ opacity:1; }
+                 /* ---------- 아이폰 / 모바일 ---------- */
+                  @media screen and (max-width:600px){ 
+                  .plate{ padding:35px 20px; } h1{ font-size:1.45rem; } 
+                  .plateWrap{ width:85vw; max-width:420px; } 
+                  .symbol{ font-size:.9rem; margin-bottom:35px; } 
+                  .question{ font-size:.9rem; } } 
+                  /* ---------- 아주 작은 아이폰 화면 ---------- */
+                   @media screen and (max-width:380px){ .plate{ padding-left:15px; padding-right:15px; }
+                   .plateWrap{ width:90vw; } h1{ font-size:1.35rem; } } 
+                   </style> 
+                   </head> 
+    <body> 
+        <div class="plate">
+             <h1>얼음의 접시</h1> <br>
 
-<style>
-body{
-    font-family:'NanumSquare',sans-serif;
-    margin:0;
-    background:#3d4042;
-    color:#eff2f3e5;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
-.plate{
-    max-width:50%;
-    padding:40px 25px;
-    text-align:center;
-}
+<!-- 이미지 레이어 -->
+
+<div class="plateWrap">
+
+    <!-- 배경 -->
+
+    <img
+        src="plate_bg.png"
+        class="bg"
+        alt=""
+    >
 
 
-h1{
-    font-size:1.6rem;
-    margin-bottom:10px;
-}
+    <!-- 접시 -->
 
-.keywords{
-    font-size:.85rem;
-    color:#d7dad8;
-    margin-bottom:30px;
-}
-
-/* ---------- 이미지 레이어 ---------- */
-
-.plateWrap{
-    position: relative;
-    width: 35%;
-    margin: 0 auto 18px;   /* 가운데 정렬 */
-}
-
-.bg{
-    display:block;
-    width:100%;
-}
-
-#plateImg{
-    position:absolute;
-    inset:0;
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-    cursor:pointer;
-    transform-origin:center center;
-    z-index:2;
-}
-
-}
-/* ---------- 텍스트 ---------- */
-
-.symbol{
-    font-size:.95rem;
-    line-height:1.6;
-    margin-bottom:40px;
-}
-
-.question{
-    font-size:.95rem;
-    color:#eceeee;
-    padding-top:25px;
-    border-top: color white 1px;
-     
-
-}
-
-a{
-    display:inline-block;
-    margin-top:20px;
-    font-size:.85rem;
-    color:#d4d6d6f1;
-    text-decoration:none;
-}
-
-/* ---------- 흔들림 ---------- */
-
-.shake{
-    animation:windMove 1.4s ease;
-}
-
-@keyframes windMove{
-
-0%{
-    transform:scale(1) rotate(0deg);
-}
-
-15%{
-    transform:scale(1.02) rotate(-3deg);
-}
-
-30%{
-    transform:scale(1.04) rotate(3deg);
-}
-
-45%{
-    transform:scale(1.03) rotate(-2deg);
-}
-
-60%{
-    transform:scale(1.05) rotate(2deg);
-}
-
-80%{
-    transform:scale(1.02) rotate(-1deg);
-}
-
-100%{
-    transform:scale(1) rotate(0deg);
-}
-
-}
-
-/* 빛 효과 */
-
-.glow{
-    filter:drop-shadow(0 0 18px rgba(223, 252, 249, 0.5));
-}
-
- 
-.message{
-
-    height:50px;
-
-    margin: 25px 0 25px;
-
-    font-size:1rem;
-
-    line-height:1.6;
-
-    color:#ffffff;
-
-    opacity:0;
-
-    transition:opacity 2s ease;
-
-}
-
-.message.show{
-
-    opacity:1;
-
-}
-</style>
-</head>
-
-<body>
-
-<div class="plate">
-
-    <h1>얼음의 빈 접시</h1>
-
-       <!-- 이미지 레이어 -->
-    <div class="plateWrap">
-
-        <!-- 배경 -->
-        <img
-            src="plate_bg.png"
-            class="bg"
-            alt=""
-        >
-
-        <!-- 접시 -->
-        <img
-            src="plate_only.png"
-            id="plateImg"
-            alt="얼음의 접시"
-        >
-   
-    </div>
-    <div><div class="symbol">
-     <br> 접시를 가볍게 눌러 보세요 ^ <br></div>
-    
-        <div id="message" class="message">
-        <strong>잠시 비어 있다는 것은<br>
-         가능성이다.</strong>
-    </div> 
-    
-    <div class="question">
-    <strong>당신은 접시에 무엇을 아직 올리지 못했는가?</strong>
-    </div>
-
-    <a href="index.html">← 돌아가기</a><br>
-    <a href="page2.html">다음 →</a>
+    <img
+        src="plate_only.png"
+        id="plateImg"
+        alt="얼음의 접시"
+    >
 
 </div>
 
-<audio id="windSound" preload="auto">
-    <source src="wind.mp3" type="audio/mpeg">
-</audio>
+
+<!-- 안내 문구 -->
+
+<div class="symbol">
+    <br>
+    접시를 가볍게 눌러 보세요 ^
+    <br>
+</div>
 
 
-<script>
+<!-- 철학 문장 -->
 
-const plate = document.getElementById("plateImg");
+<div id="message" class="message">
+
+    <strong>
+        잠시 비어 있다는 것은<br>
+        가능성이다.
+    </strong>
+
+</div>
+
+
+<!-- 질문 -->
+
+<div class="question">
+
+    <strong>
+        당신은 접시에 아직 무엇을 올리지 못했는가?
+    </strong>
+
+</div>
+
+
+<!-- 페이지 이동 -->
+
+<a href="index.html">← 돌아가기</a>
+<br>
+
+<a href="page2.html">다음 →</a>
+
+<script> 
+const plate = document.getElementById("plateImg"); 
 const wind = document.getElementById("windSound");
-const message = document.getElementById("message");
-
-
-plate.addEventListener("click", () => {
-
-
-    // =====================
-    // 애니메이션 초기화
-    // =====================
-
-    plate.classList.remove("shake");
-    plate.classList.remove("glow");
-
-
-    // 같은 애니메이션 재실행을 위한 강제 계산
-    void plate.offsetWidth;
-
-
-
-    // =====================
-    // 접시 흔들림 + 빛
-    // =====================
-
-    plate.classList.add("shake");
-    plate.classList.add("glow");
-
-
-
-
-
-    // =====================
-    // 철학 문장 등장
-    // =====================
-
-    setTimeout(() => {
-
-        message.classList.add("show");
-
-    }, 800);
-
-
-
-    // =====================
-    // 바람 소리
-    // =====================
-
-    wind.pause();
-    wind.currentTime = 0;
-    wind.volume = 0.35;
-
-    wind.play().catch(error => {
-
-        console.log("소리 재생 실패:", error);
-
-    });
-
-
-
-    // =====================
-    // 빛 제거
-    // =====================
-
-    setTimeout(() => {
-
-        plate.classList.remove("glow");
-
-    }, 1400);
-
-
-
-    // =====================
-    // 서리 + 문장 제거
-    // =====================
-
-    setTimeout(() => {
-
-       message.classList.remove("show");
-
-    }, 4000);
-
-
-
-});
-
-</script>
-
-
-</body>
-</html>
+const message = document.getElementById("message"); 
+plate.addEventListener("click", () => { 
+/* ===================== 애니메이션 초기화 ===================== */ 
+plate.classList.remove("shake"); plate.classList.remove("glow");
+/* 같은 애니메이션 재실행 */
+ void plate.offsetWidth; /* ===================== 접시 흔들림 + 빛 ===================== */
+ plate.classList.add("shake"); plate.classList.add("glow"); 
+ /* ===================== 철학 문장 등장 ===================== */ 
+ setTimeout(() => { message.classList.add("show"); }, 800); 
+ /* ===================== 바람 소리 ===================== */ 
+ wind.pause(); wind.currentTime = 0; wind.volume = 0.35; wind.play().catch(error => { console.log( "소리 재생 실패:", error ); }); 
+ /* ===================== 빛 제거 ===================== */
+  setTimeout(() => { plate.classList.remove("glow"); }, 1400); 
+  /* ===================== 문장 제거 ===================== */ 
+  setTimeout(() => { message.classList.remove("show"); }, 4000); }); 
+  </script> 
+  </body> 
+  </html>
