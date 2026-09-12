@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>호흡하기</title>
+
+  <style>
+
+    /* ========================================
+       기본 설정
+    ======================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background: #f5f3ee;
+      color: #252522;
+
+      overflow: hidden;
+
+      font-family:
+        "Noto Serif KR",
+        "Apple SD Gothic Neo",
+        serif;
+    }
+
+
+    /* ========================================
+       전체 화면
+    ======================================== */
+
+    .stage {
+      position: relative;
+
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    /* ========================================
+       잎
+    ======================================== */
+
+    .leaf {
+      position: absolute;
+
+      /*
+        화면 위에서 시작
+      */
+      top: -180px;
+      left: 50%;
+
+      width: min(150px, 28vw);
+
+      /*
+        회전할 때 중심점
+      */
+      transform-origin: 50% 10%;
+
+      /*
+        클릭할 수 있다는 표시
+      */
+      cursor: pointer;
+
+      /*
+        이미지 선택 / 드래그 방지
+      */
+      user-select: none;
+      -webkit-user-drag: none;
+
+      /*
+        낙하 + 흔들림
+      */
+      animation:
+        fall 7s cubic-bezier(.22, .61, .36, 1) forwards,
+        sway 2.8s ease-in-out infinite;
+
+      /*
+        클릭 후 사라지는 효과
+      */
+      transition:
+        opacity 1.4s ease,
+        filter 1.4s ease;
+    }
+
+
+    /* ========================================
+       잎이 위에서 아래로 떨어지는 애니메이션
+    ======================================== */
+
+    @keyframes fall {
+
+      0% {
+        top: -180px;
+
+        transform:
+          translateX(-50%)
+          rotate(-12deg);
+      }
+
+      35% {
+        top: 18vh;
+
+        transform:
+          translateX(-50%)
+          rotate(7deg);
+      }
+
+      68% {
+        top: 43vh;
+
+        transform:
+          translateX(-50%)
+          rotate(-5deg);
+      }
+
+      86% {
+        top: 49vh;
+
+        transform:
+          translateX(-50%)
+          rotate(2deg);
+      }
+
+      100% {
+        top: 46vh;
+
+        transform:
+          translateX(-50%)
+          rotate(-1deg);
+      }
+    }
+
+
+    /* ========================================
+       잎이 좌우로 살짝 흔들리는 움직임
+    ======================================== */
+
+    @keyframes sway {
+
+      0% {
+        margin-left: -9px;
+      }
+
+      50% {
+        margin-left: 9px;
+      }
+
+      100% {
+        margin-left: -9px;
+      }
+    }
+
+
+    /* ========================================
+       잎 클릭 후 사라짐
+    ======================================== */
+
+    .leaf.hide {
+      opacity: 0;
+
+      filter: blur(4px);
+
+      pointer-events: none;
+    }
+
+
+    /* ========================================
+       CLICK 표시
+    ======================================== */
+
+    .click-hint {
+      position: absolute;
+
+      /*
+        잎 아래쪽
+      */
+      top: calc(46vh + 105px);
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      margin: 0;
+
+      /*
+        아주 작은 글씨
+      */
+      font-family: Arial, sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: 0.25em;
+
+      text-transform: lowercase;
+
+      color: #252522;
+
+      /*
+        처음에는 안 보임
+      */
+      opacity: 0;
+
+      /*
+        천천히 나타남
+      */
+      transition:
+        opacity 1.5s ease;
+
+      /*
+        글씨 자체는 클릭하지 않음
+      */
+      pointer-events: none;
+    }
+
+
+    /*
+      잎이 떨어진 후 나타남
+    */
+    .click-hint.show {
+      opacity: 0.45;
+    }
+
+
+    /* ========================================
+       클릭 후 나타나는 영역
+    ======================================== */
+
+    .message {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      text-align: center;
+
+      /*
+        처음에는 숨김
+      */
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 2s ease;
+    }
+
+
+    /*
+      JavaScript가 show를 붙이면 나타남
+    */
+    .message.show {
+      opacity: 1;
+
+      pointer-events: auto;
+    }
+
+
+    /* ========================================
+       "호흡하기."
+    ======================================== */
+
+    .breath {
+      margin: 0;
+
+      font-size: clamp(20px, 4vw, 46px);
+
+      font-weight: 300;
+
+      letter-spacing: 0.08em;
+
+      white-space: nowrap;
+    }
+
+
+    /* ========================================
+       다음 페이지
+    ======================================== */
+
+    .next {
+      display: inline-block;
+
+      margin-top: 58px;
+
+      color: #252522;
+
+      text-decoration: none;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 13px;
+
+      font-weight: 400;
+
+      letter-spacing: 0.16em;
+
+      /*
+        처음에는 숨김
+      */
+      opacity: 0;
+
+      transform:
+        translateY(8px);
+
+      transition:
+        opacity 1.4s ease,
+        transform 1.4s ease,
+        color 0.3s ease;
+    }
+
+
+    /*
+      "호흡하기."가 나타난 뒤
+      조금 기다렸다가 버튼 등장
+    */
+
+    .message.show .next {
+      animation:
+        buttonAppear 1.5s ease forwards;
+
+      animation-delay: 1.5s;
+    }
+
+
+    @keyframes buttonAppear {
+
+      from {
+        opacity: 0;
+
+        transform:
+          translateY(8px);
+      }
+
+      to {
+        opacity: 0.65;
+
+        transform:
+          translateY(0);
+      }
+    }
+
+
+    /*
+      마우스를 올렸을 때
+    */
+
+    .next:hover {
+      opacity: 1 !important;
+
+      color: #777;
+    }
+
+
+    /* ========================================
+       잎에 마우스를 올렸을 때
+    ======================================== */
+
+    .leaf:hover {
+      filter: brightness(0.96);
+    }
+
+
+    /* ========================================
+       모바일
+    ======================================== */
+
+    @media (max-width: 600px) {
+
+      .leaf {
+        width: 110px;
+      }
+
+
+      /*
+        모바일 낙하 위치
+      */
+
+      @keyframes fall {
+
+        0% {
+          top: -130px;
+
+          transform:
+            translateX(-50%)
+            rotate(-12deg);
+        }
+
+        35% {
+          top: 20vh;
+
+          transform:
+            translateX(-50%)
+            rotate(7deg);
+        }
+
+        68% {
+          top: 43vh;
+
+          transform:
+            translateX(-50%)
+            rotate(-5deg);
+        }
+
+        86% {
+          top: 49vh;
+
+          transform:
+            translateX(-50%)
+            rotate(2deg);
+        }
+
+        100% {
+          top: 46vh;
+
+          transform:
+            translateX(-50%)
+            rotate(-1deg);
+        }
+      }
+
+
+      .click-hint {
+        top: calc(46vh + 90px);
+
+        font-size: 8px;
+      }
+
+
+      .breath {
+        font-size: 20px;
+      }
+
+
+      .next {
+        margin-top: 48px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =====================================
+       전체 화면
+  ====================================== -->
+
+  <main class="stage">
+
+
+    <!-- ===================================
+         잎 이미지
+         leaf3.png를 같은 폴더에 넣으세요.
+    ==================================== -->
+
+    <img
+      id="leaf"
+      class="leaf"
+      src="leaf3.png"
+      alt=""
+      draggable="false"
+    >
+
+
+    <!-- ===================================
+         잎이 떨어진 후 나타나는 CLICK
+    ==================================== -->
+
+    <p
+      id="clickHint"
+      class="click-hint"
+    >
+      click
+    </p>
+
+
+    <!-- ===================================
+         잎을 클릭한 후 나타나는 메시지
+    ==================================== -->
+
+    <section
+      id="message"
+      class="message"
+    >
+
+      <p class="breath">
+        초록숨쉬기.
+      </p>
+
+
+      <!-- 다음 페이지 주소 -->
+      <a
+        class="next"
+        href="plate1.html"
+      >
+        다음 페이지 →
+      </a>
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+    /* =====================================
+       HTML 요소 가져오기
+    ===================================== */
+
+    const leaf =
+      document.getElementById("leaf");
+
+    const message =
+      document.getElementById("message");
+
+    const clickHint =
+      document.getElementById("clickHint");
+
+
+    /*
+      이미 클릭했는지 확인하는 변수
+    */
+
+    let clicked = false;
+
+
+    /* =====================================
+       7초 후 CLICK 표시
+    ===================================== */
+
+    setTimeout(() => {
+
+      clickHint.classList.add("show");
+
+    }, 7000);
+
+
+    /* =====================================
+       잎 클릭
+    ===================================== */
+
+    leaf.addEventListener("click", () => {
+
+
+      /*
+        이미 클릭했다면
+        다시 실행하지 않음
+      */
+
+      if (clicked) return;
+
+      clicked = true;
+
+
+      /* -------------------------------
+         CLICK 글씨 숨기기
+      -------------------------------- */
+
+      clickHint.classList.remove("show");
+
+
+      /* -------------------------------
+         잎 사라지기
+      -------------------------------- */
+
+      leaf.classList.add("hide");
+
+
+      /* -------------------------------
+         0.85초 후
+         "호흡하기." 등장
+      -------------------------------- */
+
+      setTimeout(() => {
+
+        message.classList.add("show");
+
+      }, 850);
+
+    });
+
+  </script>
+
+
+</body>
+</html>
