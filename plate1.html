@@ -6,6 +6,7 @@
 <title>씨앗의 접시</title>
 
 <style>
+
 body {
   font-family: 'NanumSquare', sans-serif;
   margin: 0;
@@ -34,12 +35,19 @@ h1 {
   margin-bottom: 30px;
 }
 
+
+/* =====================
+   접시 + 새싹
+===================== */
+
 .plate-image {
   position: relative;
   display: inline-block;
 }
 
+
 /* 접시 이미지 */
+
 #seedPlate {
   height: 260px;
   width: auto;
@@ -48,40 +56,77 @@ h1 {
   object-fit: contain;
 }
 
+
 /* 새싹 */
+
 #sprout {
   position: absolute;
   left: 50%;
   bottom: 35%;
   width: 160px;
+
   opacity: 0;
 
   transform: translateX(-50%) scaleY(0);
   transform-origin: bottom center;
 
-  transition: transform 2s ease, opacity 1s ease;
+  transition:
+    transform 2s ease,
+    opacity 1s ease;
 }
 
-/* 성장 */
+
+/* 새싹 성장 */
+
 #sprout.grow {
   opacity: 1;
   transform: translateX(-50%) scaleY(1);
 }
 
-/* 바람 흔들림 */
+
+/* 새싹 흔들림 */
+
 #sprout.sway {
   animation: springBreeze 3s ease-in-out;
 }
 
+
 @keyframes springBreeze {
-  0%   { transform: translateX(-50%) scaleY(1) rotate(0deg); }
-  15%  { transform: translateX(-50%) scaleY(1) rotate(-4deg); }
-  30%  { transform: translateX(-50%) scaleY(1) rotate(3deg); }
-  45%  { transform: translateX(-50%) scaleY(1) rotate(-3deg); }
-  60%  { transform: translateX(-50%) scaleY(1) rotate(2deg); }
-  80%  { transform: translateX(-50%) scaleY(1) rotate(-1deg); }
-  100% { transform: translateX(-50%) scaleY(1) rotate(0deg); }
+
+  0% {
+    transform: translateX(-50%) scaleY(1) rotate(0deg);
+  }
+
+  15% {
+    transform: translateX(-50%) scaleY(1) rotate(-4deg);
+  }
+
+  30% {
+    transform: translateX(-50%) scaleY(1) rotate(3deg);
+  }
+
+  45% {
+    transform: translateX(-50%) scaleY(1) rotate(-3deg);
+  }
+
+  60% {
+    transform: translateX(-50%) scaleY(1) rotate(2deg);
+  }
+
+  80% {
+    transform: translateX(-50%) scaleY(1) rotate(-1deg);
+  }
+
+  100% {
+    transform: translateX(-50%) scaleY(1) rotate(0deg);
+  }
+
 }
+
+
+/* =====================
+   씨앗 안내 문구
+===================== */
 
 .symbol {
   font-size: 0.95rem;
@@ -89,124 +134,138 @@ h1 {
   margin-bottom: 40px;
 }
 
+
 .question {
   font-size: 0.95rem;
   color: #3d4d43;
+
   border-top: 1px solid #dcdedc;
+
   padding-top: 25px;
 }
 
-a {
-  display: inline-block;
-  margin-top: 35px;
-  font-size: 0.85rem;
-  color: #6b8f7b;
-  text-decoration: none;
-}
+
 /* =====================
    숲으로 이동 영역
 ===================== */
 
-.forestLink{
+/*
+   처음에는 보이지 않음.
+   접시를 클릭한 뒤 JavaScript에서
+   .show 클래스를 추가하면 나타남.
+*/
 
-    margin-top:80px;
+.forestLink {
 
-    text-align:center;
+  margin-top: 80px;
 
-    opacity:0;
+  text-align: center;
 
-    animation:fadeIn 2s ease forwards;
+  opacity: 0;
 
-    animation-delay:2s;
-
-}
-
-
-
-.line{
-
-    width:80px;
-
-    height:1px;
-
-    background:#cfd8d5;
-
-    margin:0 auto 50px;
+  transform: translateY(20px);
 
 }
 
 
+/* 등장 */
 
-.forestLink p{
+.forestLink.show {
 
-    font-size:0.95rem;
-
-    line-height:2;
-
-    color:#52635a;
-
-    margin-bottom:35px;
+  animation: fadeIn 2s ease forwards;
 
 }
 
 
+.line {
 
-.forestLink a{
+  width: 80px;
 
-    display:inline-block;
+  height: 1px;
 
-    padding:14px 35px;
+  background: #cfd8d5;
 
-    border:1px solid #70857b;
-
-    color:#536960;
-
-    text-decoration:none;
-
-    font-size:0.85rem;
-
-    letter-spacing:0.05em;
-
-    transition:0.4s;
+  margin: 0 auto 50px;
 
 }
 
 
+.forestLink p {
 
-.forestLink a:hover{
+  font-size: 0.95rem;
 
-    background:#536960;
+  line-height: 2;
 
-    color:white;
+  color: #52635a;
+
+  margin-bottom: 35px;
+
+}
+
+
+.forestLink a {
+
+  display: inline-block;
+
+  padding: 14px 35px;
+
+  border: 1px solid #70857b;
+
+  color: #536960;
+
+  text-decoration: none;
+
+  font-size: 0.85rem;
+
+  letter-spacing: 0.05em;
+
+  transition: 0.4s;
 
 }
 
 
+.forestLink a:hover {
 
-/* 등장 효과 */
+  background: #536960;
 
-@keyframes fadeIn{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(20px);
-
-    }
-
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
+  color: white;
 
 }
+
+
+/* =====================
+   등장 효과
+===================== */
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+hr {
+  border: 0;
+  border-top: 1px solid #cfd8d5;
+  width: 80px;
+  margin: 50px auto;
+}
+
 </style>
 </head>
+
 
 <body>
 
@@ -214,37 +273,71 @@ a {
 
   <h1>접시 위의 씨앗</h1>
 
+
   <div class="plate-image">
 
-    <img src="plate01.png" alt="씨앗의 접시" id="seedPlate">
+    <img
+      src="plate01.png"
+      alt="씨앗의 접시"
+      id="seedPlate"
+    >
 
-    <img src="sprout.png" alt="새싹" id="sprout">
+    <img
+      src="sprout.png"
+      alt="새싹"
+      id="sprout"
+    >
 
   </div>
+
 
   <div class="symbol">
-    <br>씨앗을 살며시 눌러 보세요~ <br><br.
+
+    <br>
+    씨앗을 살며시 눌러 보세요~
+    <br><br>
+
   </div>
+
 
   <div class="question" id="questionText">
-    내가 아직 키우지 못한 씨앗은<br>
-    무엇일까?<br><br>
-    <strong>어떤 씨앗을 올릴 것인가.</strong>
+
+    내가 아직 키우지 못한 씨앗은
+    <br>
+
+    무엇일까?
+    <br><br>
+
+    <strong>
+      어떤 씨앗을 올릴 것인가.
+    </strong>
+
   </div>
-<div class="forestLink">
 
-    <div class="line"></div>
+  
+  <!-- =====================
+       숲으로 이동
+  ====================== -->
 
+  <div class="forestLink">
+
+    
+    <hr>
     <p>
-        오늘의 접시 위의 이야기는<br>
-        여기까지입니다.
+
+      오늘의 접시 위의 이야기는
+      <br>
+
+      여기까지입니다.
+
     </p>
 
 
-
     <a href="index.html">
-        HOME
+      HOME
     </a>
+
+  </div>
 
 </div>
 
@@ -253,34 +346,64 @@ a {
 
 const plate = document.getElementById("seedPlate");
 const sprout = document.getElementById("sprout");
-const wind = document.getElementById("springWind");
 const question = document.getElementById("questionText");
+const forestLink = document.querySelector(".forestLink");
 
 let grown = false;
 
+
 plate.addEventListener("click", () => {
 
+  // 한 번만 실행
   if (grown) return;
+
   grown = true;
 
 
+  /* =====================
+     1. 새싹 성장
+  ====================== */
 
-  // 새싹 성장
   sprout.classList.add("grow");
 
-  // 문구 변경 (수정 핵심)
+
+  /* =====================
+     2. 1.5초 후 문구 변경
+  ====================== */
+
   setTimeout(() => {
+
     question.innerHTML = `
       씨앗은 이미 자라기 시작했다.<br>
-      <strong>모든 성장은 <br>
-      누군가의 기다림에서 시작된다.</strong>
+      <strong>
+       <br> 모든 성장은 <br>
+        누군가의 기다림에서 시작된다.
+      </strong>
     `;
+
   }, 1500);
 
-  // 흔들림
+
+  /* =====================
+     3. 2초 후 새싹 흔들림
+  ====================== */
+
   setTimeout(() => {
+
     sprout.classList.add("sway");
+
   }, 2000);
+
+
+  /* =====================
+     4. 3초 후 숲으로 이동 영역 등장
+  ====================== */
+
+  setTimeout(() => {
+
+    forestLink.classList.add("show");
+
+  }, 3000);
 
 });
 
